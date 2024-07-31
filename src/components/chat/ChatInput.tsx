@@ -3,7 +3,13 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUpIcon, BanIcon, PaperclipIcon } from "lucide-react";
 import "@/styles/ChatInput.css";
 
-export default function ChatInput() {
+interface Props {
+  streamingData: boolean;
+  onSubmit: (prompt: string) => void;
+  onStop?: () => void;
+}
+
+export default function ChatInput({ streamingData, onSubmit, onStop }: Props) {
   const [inputWrapperHeight, setInputWrapperHeight] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const [disableSend, setDisableSend] = useState(true);
@@ -12,6 +18,22 @@ export default function ChatInput() {
   const refInputWrapper = useRef<HTMLDivElement>(null);
   const refTextArea = useRef<HTMLDivElement>(null);
   const refSend = useRef<HTMLButtonElement>(null);
+
+  const onClickSend = async () => {
+    const refPrompt = refTextArea.current;
+    if (!refPrompt) return;
+    setValue("");
+
+    const prompt = refPrompt.innerText;
+    if (!prompt) return;
+
+    setDisableSend(true);
+    refPrompt.innerText = "";
+    refPrompt.classList.add("placeholder");
+
+    onSubmit(value);
+    setValue("");
+  };
 
   const handleInput = (payload: string = "change", event?: any) => {
     const chatInputWrapper = refInputWrapper.current;
@@ -56,8 +78,9 @@ export default function ChatInput() {
     switch (payload) {
       case "keyDown":
         {
-          if (event.keyCode === 13) {
+          if (event.keyCode === 13 || event.key === "Enter") {
             event.preventDefault();
+            onClickSend();
           }
 
           if (event.keyCode === 13 && event.shiftKey) {
@@ -140,6 +163,10 @@ export default function ChatInput() {
     };
   }, [refInputWrapper]);
 
+  useEffect(() => {
+    setStreaming(streamingData);
+  }, [streamingData]);
+
   return (
     <footer className="w-full min-h-[4rem] flex flex-col items-center justify-end py-2 gap-1 px-4">
       <div className="w-full items-center justify-center flex relative flex-col">
@@ -148,7 +175,10 @@ export default function ChatInput() {
           data-expanded={expanded}
         >
           {streaming && (
-            <button className="bg-white/10 h-[2.2rem] absolute top-[-2.5rem] flex items-center justify-center gap-2 rounded-full px-2 right-0 backdrop-blur hover:bg-white/15 transition-colors duration-300 ease-in-out z-30">
+            <button
+              className="bg-white/10 h-[2.2rem] absolute top-[-2.5rem] flex items-center justify-center gap-2 rounded-full px-2 right-0 backdrop-blur hover:bg-white/15 transition-colors duration-300 ease-in-out z-30"
+              onClick={() => onStop && onStop()}
+            >
               <BanIcon className="size-[1.325rem] text-white " />
               <span className="text-white font-medium text-[1rem] leading-[0] mr-2">
                 Stop streaming
@@ -192,6 +222,7 @@ export default function ChatInput() {
                 className="mb-[0.15rem] me-1 mr-2 flex size-8 bg-white rounded-full hover:bg-neutral-200 disabled:opacity-40 transition-[opacity,background-color] duration-300 ease-in-out items-center justify-center active:bg-neutral-400"
                 disabled={streaming || disableSend}
                 ref={refSend}
+                onClick={onClickSend}
               >
                 <ArrowUpIcon
                   className="size-[1.5rem] text-black"
