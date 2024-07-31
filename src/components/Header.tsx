@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import MobileMenu from "./Menu";
-import {useTranslations} from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 export interface NavLinksProps {
   label: string;
@@ -25,10 +25,11 @@ export const navLinks: NavLinksProps[] = [
   },
 ];
 
-export default function Header({ language }: { language: string }) {
-  const [activeMenu, setActiveMenu ] = useState(false);
+export default function Header() {
+  const [activeMenu, setActiveMenu] = useState(false);
   const buttonMenuRef = useRef<HTMLButtonElement>(null);
-  const t = useTranslations('LandingPage');
+  const t = useTranslations("LandingPage");
+  const locale = useLocale();
 
   useEffect(() => {
     function handleResize() {
@@ -91,7 +92,7 @@ export default function Header({ language }: { language: string }) {
           className="rounded-full text-white hover:text-gray-300 transition-colors duration-300"
         >
           <span className="font-semibold text-[1.05rem] font-geistSans leading-[0]">
-            {t('pages.leads')}
+            {t("pages.leads")}
           </span>
         </Link>
         <Link
@@ -101,17 +102,17 @@ export default function Header({ language }: { language: string }) {
           className="rounded-full text-white hover:text-gray-300 transition-colors duration-300"
         >
           <span className="font-semibold text-[1.05rem] font-geistSans leading-[0]">
-            {t('pages.changelogs')}
+            {t("pages.changelogs")}
           </span>
         </Link>
       </nav>
       <div className="flex items-center gap-2 max-md:hidden">
         <Link
-          href={`${language}/chat`}
+          href={`${locale}/chat`}
           className="px-4 py-1 rounded-full text-black bg-white"
         >
           <span className="font-semibold text-[1.05rem] font-geistSans leading-[0]">
-            {t('actions.chat')}
+            {t("actions.chat")}
           </span>
         </Link>
       </div>

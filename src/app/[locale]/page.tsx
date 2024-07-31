@@ -7,7 +7,7 @@ import {
   MessageSquareIcon,
   RabbitIcon,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import TypeWriter from "@/components/animation/TypeWriter";
@@ -23,18 +23,10 @@ const props = {
 export default function Page() {
   const t = useTranslations("LandingPage");
   const itemKeys = ["fast", "realTime", "history"] as const;
-  const [language, setLanguage] = useState("");
-
+  const locale = useLocale();
   const router = useRouter();
 
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem("language") || "en";
-    setLanguage(savedLanguage);
-    router.push(`/${savedLanguage}`);
-  }, [router]);
-
   const handleLanguageChange = (newLanguage: string) => {
-    localStorage.setItem("language", newLanguage);
     router.push(`/${newLanguage}`);
   };
 
@@ -61,7 +53,7 @@ export default function Page() {
 
   return (
     <Fragment>
-      <Header language={language} />
+      <Header />
       <main className="flex w-full h-dvh flex-col items-center justify-center relative z-[10] gap-2">
         <div className="size-full z-[20] absolute pointer-events-none overflow-hidden flex items-center justify-center">
           <div className="text-[50rem] blur-3xl absolute -rotate-[75deg] left-0 bottom-[-25%] opacity-30 max-md:text-[30rem] max-md:bottom-auto">
@@ -99,7 +91,7 @@ export default function Page() {
           />
         </div>
         <Link
-          href={`/${language}/chat`}
+          href={`/${locale}/chat`}
           className="flex items-center justify-center gap-2 text-neutral-100 rounded-full px-4 font-medium h-[1.875rem] animate-fade-in-up bg-white/5 border border-white/10 transition-colors duration-300 ease-out hover:border-white/20 hover:bg-white/10 z-30 backdrop-blur-xl"
         >
           <span className="font-geistSans text-[1.08825rem] leading-[0]">
@@ -192,7 +184,7 @@ export default function Page() {
             </p>
             <div className="h-5"></div>
             <Link
-              href={`/${language}/chat`}
+              href={`/${locale}/chat`}
               className="rounded-[4rem] gap-2 transition-all duration-300 cursor-pointer select-none shadow-black hover:brightness-110 hover:shadow-[0_10px_50px_rgba(0,0,0,0.3)] inline-flex justify-center items-center bg-white px-4 py-1"
             >
               <span className="font-geistSans text-[1.375rem] font-semibold bg-gradient-to-r from-red-500 to-pink-500 text-transparent bg-clip-text">
@@ -276,7 +268,7 @@ export default function Page() {
                 </svg>
               </Link>
               <Link
-                href={`${language}/chat`}
+                href={`${locale}/chat`}
                 className="px-4 py-1 rounded-full text-black bg-white"
               >
                 <span className="font-semibold text-[1.05rem] font-geistSans leading-[0]">

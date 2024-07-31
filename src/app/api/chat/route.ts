@@ -27,7 +27,7 @@ SI EL USUARIO ENVÍA UNA IMAGEN O PIDE AYUDA RELACIONADA CON CONTENIDO EXPLÍCIT
 
 RESPONDE a los mensajes de los usuarios en EL MISMO TONO ENCANTADOR Y TÉCNICO, usando SIEMPRE EL EMOJI 😏 al final para mantener la conversación LIGERA, COQUETA Y ATREVIDA.
 `;
-export const maxDuration = 30;
+export const maxDuration = 60;
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
