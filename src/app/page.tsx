@@ -56,14 +56,14 @@ export default function Page() {
             src={"/HeartFire.png"}
             width={256}
             height={256}
-            className="pointer-events-none size-[10rem] left-[10%] top-[24%] -rotate-[15deg] absolute animation-up-down max-[860px]:top-[18%] max-[860px]:right-[5%] max-[860px]:size-[8rem] max-md:size-[6rem]"
+            className="pointer-events-none size-[10rem] left-[10%] top-[24%] -rotate-[15deg] absolute animation-up-down max-[860px]:top-[18%] max-[860px]:right-[5%] max-[860px]:size-[8rem] max-md:size-[6rem] animate-delay-0"
           />{" "}
           <Image
             alt="Monkey Fluent Emoji"
             src={"/Monkey.png"}
             width={256}
             height={256}
-            className="pointer-events-none size-[8rem] left-[28%] bottom-[8%] rotate-[15deg] absolute animation-up-down-2 max-[860px]:bottom-[8%] max-[860px]:left-[20%] max-[860px]:size-[8rem] max-md:size-[6rem]"
+            className="pointer-events-none size-[8rem] left-[28%] bottom-[8%] rotate-[15deg] absolute animation-up-down-2 max-[860px]:bottom-[8%] max-[860px]:left-[20%] max-[860px]:size-[8rem] max-md:size-[6rem] "
           />
           <Image
             alt="HotFace Fluent Emoji"

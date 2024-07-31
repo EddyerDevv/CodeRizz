@@ -1,0 +1,110 @@
+#app_chat_prompt_text {
+  --rows-max: 10;
+
+  width: 100%;
+  height: 100%;
+  border: none;
+  max-height: calc(var(--rows-max) * 1.5rem);
+  overflow: auto;
+  background-color: transparent;
+  color: rgb(246, 252, 255);
+  font-size: 1rem;
+  font-family: var(--font-inter);
+  resize: none;
+  outline: none;
+  position: relative;
+  padding-right: 0.35rem;
+  white-space: pre-wrap;
+  tab-size: 4;
+  text-align: left;
+  min-height: 1.25rem;
+}
+
+#app_chat_prompt_text.placeholder::before {
+  content: attr(data-placeholder);
+  color: rgb(201, 201, 201);
+  font-size: 1rem;
+  font-family: var(--font-inter);
+  pointer-events: none;
+}
+
+#app_chat_prompt_text::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+#app_chat_prompt_text::-webkit-scrollbar-thumb {
+  background-color: rgb(160, 160, 160);
+  border-radius: 50px;
+  cursor: default;
+}
+
+#app_chat_prompt_text::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(201, 201, 201);
+}
+
+#app_chat_prompt_text::placeholder {
+  color: rgb(218, 218, 218);
+  font-size: 1.1rem;
+  font-family: var(--font-geist-sans);
+}
+
+.chat_footer > .prompt_area > .actions {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 0 1 auto;
+  margin-left: auto;
+  gap: 0.2rem;
+}
+
+.chat_footer > .prompt_area > .actions > .btn {
+  display: flex;
+  height: 3.3rem;
+  width: 3.3rem;
+  align-items: center;
+  justify-content: center;
+  color: rgb(230, 230, 230);
+  background-color: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s cubic-bezier(0.2, 0, 0, 1),
+    color 0.2s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.chat_footer > .prompt_area > .actions > .btn:hover {
+  background-color: rgb(255, 255, 255, 0.05);
+}
+
+.chat_footer > .prompt_area > .actions > .btn:active {
+  background-color: rgb(0, 255, 149);
+  color: rgb(0, 0, 0);
+}
+
+.chat_footer > .prompt_area > .actions > .btn:disabled {
+  background-color: rgb(255, 255, 255, 0.025);
+  color: rgb(100, 102, 103);
+  cursor: default;
+}
+
+.chat_footer > .prompt_area > .actions > .btn > .icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  pointer-events: none;
+}
+
+.chat_footer > .tip {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.5rem;
+  color: rgb(203, 201, 201);
+  font-size: 0.8rem;
+  font-weight: 400;
+  font-family: var(--font-geist-sans);
+}

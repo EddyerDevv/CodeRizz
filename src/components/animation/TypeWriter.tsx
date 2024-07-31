@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function TypeWriter({
   text,
@@ -66,7 +66,7 @@ export default function TypeWriter({
       className={`inline-flex relative ${className || ""} typewriter-container`}
     >
       {displayedText || ""}
-      <span className="font-normal animate-blink  text-white -translate-y-[4.5px] typewriter-cursor">
+      <span className="font-normal animate-blink text-white -translate-y-[4.5px] typewriter-cursor">
         |
       </span>
     </div>
