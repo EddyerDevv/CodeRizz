@@ -1,0 +1,49 @@
+{
+  "LandingPage": {
+    "header": {
+      "linkButton": "Conecta con cualquier persona ahora.",
+      "title": "Valora los momentos con tu ",
+      "descriptions": "alguien-pareja-novia-novio-crush",
+      "description": "Nuestras respuestas con IA harán tus conversaciones más encantadoras y te ayudarán a conquistar a esa persona especial."
+    },
+
+    "actions": {
+      "startNowButton": "Empieza ahora gratis",
+      "chat": "Chatea con IA"
+    },
+
+    "preview": {
+      "title": "En desarrollo",
+      "description": "Disponible a partir del {date}"
+    },
+
+    "features": {
+      "title": "Características principales",
+      "description": "Code Rizz tiene excelentes características adicionales más allá de las principales. Visita nuestro GitHub para ver lo que ofrecemos.",
+      "items": {
+        "fast": {
+          "title": "Rápido y confiable",
+          "description": "Code Rizz es un chatbot de IA rápido y fácil de usar, diseñado para ayudarte con tu vida amorosa."
+        },
+        "realTime": {
+          "title": "Chat en tiempo real",
+          "description": "Obtendrás respuestas al instante, ya que nuestro chat de IA está diseñado para respuestas en tiempo real."
+        },
+        "history": {
+          "title": "Guardar historial de chat",
+          "description": "Guardamos tu historial de chat para que puedas revisar tus conversaciones con Code Rizz siempre que lo desees."
+        }
+      }
+    },
+
+    "card": {
+      "title": "¿Cuál es el propósito de nuestro proyecto?",
+      "description": "Este proyecto es solo con fines educativos, estará disponible para\nel hackathon de Vercel con midudev."
+    },
+
+    "pages": {
+      "leads": "Desarrolladores",
+      "changelogs": "Actualizaciones"
+    }
+  }
+}

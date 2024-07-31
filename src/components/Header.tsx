@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import MobileMenu from "./Menu";
+import {useTranslations} from "next-intl";
 
 export interface NavLinksProps {
   label: string;
@@ -24,9 +25,10 @@ export const navLinks: NavLinksProps[] = [
   },
 ];
 
-export default function Header() {
-  const [activeMenu, setActiveMenu] = useState(false);
+export default function Header({ language }: { language: string }) {
+  const [activeMenu, setActiveMenu ] = useState(false);
   const buttonMenuRef = useRef<HTMLButtonElement>(null);
+  const t = useTranslations('LandingPage');
 
   useEffect(() => {
     function handleResize() {
@@ -89,7 +91,7 @@ export default function Header() {
           className="rounded-full text-white hover:text-gray-300 transition-colors duration-300"
         >
           <span className="font-semibold text-[1.05rem] font-geistSans leading-[0]">
-            Maintainers
+            {t('pages.leads')}
           </span>
         </Link>
         <Link
@@ -99,17 +101,17 @@ export default function Header() {
           className="rounded-full text-white hover:text-gray-300 transition-colors duration-300"
         >
           <span className="font-semibold text-[1.05rem] font-geistSans leading-[0]">
-            ChangeLogs
+            {t('pages.changelogs')}
           </span>
         </Link>
       </nav>
       <div className="flex items-center gap-2 max-md:hidden">
         <Link
-          href={"/chat"}
+          href={`${language}/chat`}
           className="px-4 py-1 rounded-full text-black bg-white"
         >
           <span className="font-semibold text-[1.05rem] font-geistSans leading-[0]">
-            Chat with AI
+            {t('actions.chat')}
           </span>
         </Link>
       </div>

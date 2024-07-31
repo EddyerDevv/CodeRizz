@@ -1,0 +1,48 @@
+{
+  "LandingPage": {
+    "header": {
+      "linkButton": "Link yourself to anyone now.",
+      "title": "Cherish moments with your special ",
+      "descriptions": "girl-someone-partner-girlfriend-boyfriend",
+      "description": "Powered by AI, our answers can be useful for your love chat or rizz chat, you can win her over."
+    },
+
+    "actions": {
+      "startNowButton": "Start now free",
+      "chat": "Chat with AI"
+    },
+
+    "preview": {
+      "title": "Under development",
+      "description": "Available at {date}"
+    },
+
+    "features": {
+      "title": "Key features",
+      "description": "Code Rizz has great additional features beyond the main ones. Check out our GitHub to see what we offer.",
+      "items": {
+        "fast": {
+          "title": "Fast and reliable",
+          "description": "Code Rizz is a quick and user-friendly AI chatbot designed to assist with your love life."
+        },
+        "realTime": {
+          "title": "Real-time chat",
+          "description": "You’ll get answers instantly, as our AI chat is built for real-time responses."
+        },
+        "history": {
+          "title": "Save chat history",
+          "description": "We store your chat history so you can review your conversations with Code Rizz whenever you like."
+        }
+      }
+    },
+
+    "card": {
+      "title": "What is the purpose of our project?",
+      "description": "This is for educational purposes only, it will be available for\nthe Vercel hackathon with midudev."
+    },
+    "pages": {
+      "leads": "Project leads",
+      "changelogs": "Change logs"
+    }
+  }
+}
