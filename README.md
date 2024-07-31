@@ -8,7 +8,7 @@
 
 # 📋 Changelogs
 
-- No changelogs yet! 🚧
+- 31/07/2024 - 2:13 AM MX - Added mobile menu 📱
 
 # 🛠️ Maintainers
 

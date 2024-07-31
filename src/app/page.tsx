@@ -221,7 +221,9 @@ export default function Page() {
                 className="flex flex-col gap-[1.2rem] sm:flex-row"
               >
                 <Link
-                  href={"https://github.com/EddyerDevv/CodeRizz#maintainers"}
+                  href={
+                    "https://github.com/EddyerDevv/CodeRizz#%EF%B8%8F-maintainers"
+                  }
                   target="_blank"
                   referrerPolicy="no-referrer"
                   className="rounded-full text-white hover:text-gray-300 transition-colors duration-300"
@@ -231,7 +233,7 @@ export default function Page() {
                   </span>
                 </Link>
                 <Link
-                  href={"https://github.com/EddyerDevv/CodeRizz#changelogs"}
+                  href={"https://github.com/EddyerDevv/CodeRizz#-changelogs"}
                   target="_blank"
                   referrerPolicy="no-referrer"
                   className="rounded-full text-white hover:text-gray-300 transition-colors duration-300"
