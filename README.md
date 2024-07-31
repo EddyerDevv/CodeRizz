@@ -1,16 +1,16 @@
-# Code Rizz - Rizz AI
+# 💖 Code Rizz - Rizz AI
 
-- Make someone fall in love with the help of the AI, Code Rizz, in charge of generating a love message based on your context and image.
+- Make someone fall in love with the help of AI! Code Rizz is in charge of generating a love message based on your context and image. 🌹✨
 
-- No API is needed, until after the hackathon is over we will put a modal so you can add your own API key.
+- No API is needed for now, but after the hackathon, we will add a modal so you can include your own API key. 🔐
 
-- THIS PROJECT, is made for educational and demonstrative purposes, nothing more to show and see, if this idea was not good, we accept your feedbacks.
+- **This project** is made for educational and demonstrative purposes. If you think this idea isn't great, we welcome your feedback. 💬
 
-# Changelogs
+# 📋 Changelogs
 
-- No changelogs yet
+- No changelogs yet! 🚧
 
-# Maintainers
+# 🛠️ Maintainers
 
 - [@EddyerDevv](https://github.com/EddyerDevv)
 - [@isaacxz](https://github.com/isaacsx)
