@@ -45,8 +45,8 @@ export default function Page() {
     <Fragment>
       <Header />
       <main className="flex w-full h-dvh flex-col items-center justify-center relative z-[10] gap-2">
-        <div className="size-full z-[20] absolute pointer-events-none overflow-hidden">
-          <div className="text-[50rem] absolute blur-3xl -rotate-[75deg] top-[-60%] opacity-30 max-md:text-[30rem] max-md:top-[-25%]">
+        <div className="size-full z-[20] absolute pointer-events-none overflow-hidden flex items-center justify-center">
+          <div className="text-[50rem] blur-3xl absolute -rotate-[75deg] left-0 bottom-[-25%] opacity-30 max-md:text-[30rem] max-md:bottom-auto">
             /
           </div>
         </div>
