@@ -1,4 +1,7 @@
+// @ts-ignore
 import type { Config } from "tailwindcss";
+// @ts-ignore
+import animations from "@midudev/tailwind-animations";
 
 const config: Config = {
   content: [
@@ -7,14 +10,11 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
+    fontFamily: {
+      geistSans: "var(--font-geist-sans)",
+      inter: "var(--font-inter)",
     },
   },
-  plugins: [],
+  plugins: [animations],
 };
 export default config;
