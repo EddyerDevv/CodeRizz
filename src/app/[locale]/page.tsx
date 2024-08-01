@@ -115,16 +115,20 @@ export default function Page() {
           <p className="text-[1.425rem] leading-[1.5rem] font-normal text-center max-w-[38rem] text-neutral-400 max-md:text-[1.2rem] max-md:leading-[1.375rem] max-md:max-w-[30rem] animate-fade-in-up animate-delay-500">
             {t("header.description")}
           </p>
-          <button className="flex items-center justify-center gap-2 rounded-full px-5 py-1 text-black bg-white ease-out max-md:px-4 max-md:py-1 animate-fade-in-up animate-delay-900">
+          <Link href={`${locale}/chat`}>
+            <button
+                className="flex items-center justify-center gap-2 rounded-full px-5 py-1 text-black bg-white ease-out max-md:px-4 max-md:py-1 animate-fade-in-up animate-delay-900">
             <span className="text-[1.325rem] font-semibold font-geistSans max-md:text-[1.15rem]">
               {t("actions.startNowButton")}
             </span>
-          </button>
+            </button>
+          </Link>
         </div>
       </main>
       {/* Preview */}
       <div className="flex w-full flex-col items-center justify-center pb-4 relative top-[-12%]">
-        <section className="aspect-video border border-white/15 w-[85%] rounded-lg bg-white/5 p-4 max-md:w-[100%] max-md:rounded-none  max-md:p-2">
+        <section
+            className="aspect-video border border-white/15 w-[85%] rounded-lg bg-white/5 p-4 max-md:w-[100%] max-md:rounded-none  max-md:p-2">
           <div className="size-full rounded-lg bg-white/5 flex flex-col items-center justify-center max-md:rounded-none ">
             <Image
                 src={`/preview_${locale}.png`}
