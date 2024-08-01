@@ -139,7 +139,7 @@ export default function Select({
     >
       <div
         ref={refContainer}
-        className={`flex items-center justify-start px-3 h-[2.125rem] min-w-[10rem] gap-2 cursor-pointer transition-colors duration-300 ease-out 5 hover:bg-white/15 bg-white/10 backdrop-blur ${className} rounded-full `}
+        className={`flex items-center justify-start px-3 h-[2.125rem] min-w-[8rem] gap-2 cursor-pointer transition-colors duration-300 ease-out 5 hover:bg-white/15 bg-white/10 backdrop-blur ${className} rounded-xl `}
         onClick={handleOpen}
       >
         {icon && icon}
@@ -158,17 +158,17 @@ export default function Select({
         <div
           ref={refOptions}
           className={`${
-            isAnimated ? "opacity-100" : "opacity-0"
-          } transition-opacity duration-300 ease-out absolute z-50 w-full bg-neutral-800 border border-white/10 rounded-lg p-1 gap-1 flex flex-col max-h-[13rem] overflow-y-auto hide-scrollbar backdrop-blur`}
+            isAnimated ? "opacity-100 translate-y" : "opacity-0 -translate-y-4"
+          } transition-[opacity,transform] duration-300 ease-out absolute z-50 w-full bg-neutral-800 border border-white/10 rounded-xl p-1 gap-1 flex flex-col max-h-[13rem] overflow-y-auto hide-scrollbar backdrop-blur`}
           style={{
             clipPath: "inset(0 0 0 0 round 8px)",
             top:
               direction === "top"
-                ? `calc(${heightContainer}px + 0.375rem)`
+                ? `calc(${heightContainer}px + 0.3rem)`
                 : undefined,
             bottom:
               direction === "bottom"
-                ? `calc(${heightContainer}px + 0.375rem)`
+                ? `calc(${heightContainer}px + 0.3rem)`
                 : undefined,
           }}
         >
