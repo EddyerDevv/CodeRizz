@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import {
   ArrowRightIcon,
   HistoryIcon,
@@ -8,11 +8,11 @@ import {
   RabbitIcon,
 } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
-import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import TypeWriter from "@/components/animation/TypeWriter";
 import Link from "next/link";
 import Image from "next/image";
+import Spotlight from "@/components/SpotLight";
 
 const props = {
   className: "text-white size-[2rem]",
@@ -24,11 +24,6 @@ export default function Page() {
   const t = useTranslations("LandingPage");
   const itemKeys = ["fast", "realTime", "history"] as const;
   const locale = useLocale();
-  const router = useRouter();
-
-  const handleLanguageChange = (newLanguage: string) => {
-    router.push(`/${newLanguage}`);
-  };
 
   const internationalizedFeatures = itemKeys.map((key) => ({
     title: t(`features.items.${key}.title`),
@@ -54,11 +49,12 @@ export default function Page() {
   return (
     <Fragment>
       <Header />
-      <main className="flex w-full h-dvh flex-col items-center justify-center relative z-[10] gap-2">
-        <div className="size-full z-[20] absolute pointer-events-none overflow-hidden flex items-center justify-center">
-          <div className="text-[50rem] blur-3xl absolute -rotate-[75deg] left-0 bottom-[-25%] opacity-30 max-md:text-[30rem] max-md:bottom-auto">
-            /
-          </div>
+      <main className="flex w-full h-dvh flex-col items-center justify-center relative z-[10] gap-2 px-2s">
+        <div className="size-full z-[20] absolute pointer-events-none overflow-hidden">
+          <Spotlight
+            className="-top-[25rem] -left-[30rem] absolute opacity-60 max-md:-left-[15rem] max-md:-top-[20rem]"
+            fill="white"
+          />
         </div>
         <div className="size-full z-[20] absolute pointer-events-none overflow-hidden max-md:hidden">
           <Image
@@ -66,28 +62,28 @@ export default function Page() {
             src={"/HeartFire.png"}
             width={256}
             height={256}
-            className="pointer-events-none size-[10rem] left-[10%] top-[24%] -rotate-[15deg] absolute animation-up-down max-[860px]:top-[18%] max-[860px]:right-[5%] max-[860px]:size-[8rem] max-md:size-[6rem] animate-delay-0"
-          />{" "}
+            className="pointer-events-none size-[10rem] left-[10%] top-[24%] -rotate-[15deg] absolute animation-up-down max-[860px]:top-[18%] max-[860px]:right-[5%] max-[860px]:size-[8rem] max-md:size-[6rem] animate-delay-0 aspect-square"
+          />
           <Image
             alt="Monkey Fluent Emoji"
             src={"/Monkey.png"}
             width={256}
             height={256}
-            className="pointer-events-none size-[8rem] left-[28%] bottom-[8%] rotate-[15deg] absolute animation-up-down-2 max-[860px]:bottom-[8%] max-[860px]:left-[20%] max-[860px]:size-[8rem] max-md:size-[6rem] "
+            className="pointer-events-none size-[8rem] left-[28%] bottom-[8%] rotate-[15deg] absolute animation-up-down-2 max-[860px]:bottom-[8%] max-[860px]:left-[20%] max-[860px]:size-[8rem] max-md:size-[6rem] aspect-square"
           />
           <Image
             alt="HotFace Fluent Emoji"
             src={"/HotFace.png"}
             width={256}
             height={256}
-            className="pointer-events-none size-[10rem] right-[9%] top-[20%] rotate-[15deg] absolute animation-up-down-2 max-[860px]:top-[13%] max-[860px]:right-[5%] max-[860px]:size-[8rem] max-md:size-[6rem]"
+            className="pointer-events-none size-[10rem] right-[9%] top-[20%] rotate-[15deg] absolute animation-up-down-2 max-[860px]:top-[13%] max-[860px]:right-[5%] max-[860px]:size-[8rem] max-md:size-[6rem] aspect-square"
           />
           <Image
             alt="FaceHearts Fluent Emoji"
             src={"/FaceHearts.png"}
             width={256}
             height={256}
-            className="pointer-events-none size-[8rem] right-[20%] bottom-[15%] rotate-[15deg] absolute animation-up-down max-[860px]:bottom-[15%] max-[860px]:right-[20%] max-[860px]:size-[8rem] max-md:size-[6rem]"
+            className="pointer-events-none size-[8rem] right-[20%] bottom-[15%] rotate-[15deg] absolute animation-up-down max-[860px]:bottom-[15%] max-[860px]:right-[20%] max-[860px]:size-[8rem] max-md:size-[6rem]aspect-square"
           />
         </div>
         <Link
@@ -103,7 +99,7 @@ export default function Page() {
             strokeWidth={1.5}
           />
         </Link>
-        <header className="flex flex-col items-center justify-center max-w-[40rem] w-full max-md:max-w-[30rem] mt-4 animate-fade-in-up animate-delay-250 z-30">
+        <header className="flex flex-col items-center justify-center max-w-[47rem] w-full max-md:max-w-[40rem] mt-4 animate-fade-in-up animate-delay-250 z-30">
           <h1 className="text-[3.9rem] font-semibold font-geistSans text-center leading-[3.75rem] max-md:text-[3rem] max-md:leading-[2.85rem] ">
             {t("header.title")}
             <span className="font-bold">
@@ -134,7 +130,7 @@ export default function Page() {
               {t("preview.title")}
             </span>
             <p className="text-white/70 font-semibold text-[1rem] ">
-              {t("preview.description", { date: "6/7/2022" })}
+              {t("preview.description", { date: "6/7/2024" })}
             </p>
           </div>
         </section>
@@ -142,7 +138,7 @@ export default function Page() {
       <section className="flex w-full flex-col items-center justify-center px-8 gap-8 py-24">
         {" "}
         <div className="size-full z-[20] absolute pointer-events-none overflow-hidden">
-          <div className="text-[64rem] absolute blur-3xl -rotate-[90deg] top-[-80%] opacity-15 max-md:text-[40rem] max-md:top-[-25%] max-md:opacity-30">
+          <div className="text-[64rem] absolute blur-3xl -rotate-[90deg] -top-[32rem] opacity-15 max-md:text-[40rem] max-md:-top-[4rem] max-md:opacity-30 ">
             /
           </div>
         </div>

@@ -6,12 +6,14 @@ export default function TypeWriter({
   pause = 2500,
   className,
   loop = true,
+  onlyText = false,
 }: {
   text: string | string[];
   speed?: number;
   pause?: number;
   className?: string;
   loop?: boolean;
+  onlyText?: boolean;
 }) {
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -61,7 +63,9 @@ export default function TypeWriter({
     loop,
   ]);
 
-  return (
+  return onlyText ? (
+    displayedText
+  ) : (
     <div
       className={`inline-flex relative ${className || ""} typewriter-container`}
     >

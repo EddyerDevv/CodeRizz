@@ -7,6 +7,11 @@
       "description": "Powered by AI, our answers can be useful for your love chat or rizz chat, you can win her over."
     },
 
+    "langs": {
+      "en": "English",
+      "es": "Spanish"
+    },
+
     "actions": {
       "startNowButton": "Start now free",
       "chat": "Chat with AI"

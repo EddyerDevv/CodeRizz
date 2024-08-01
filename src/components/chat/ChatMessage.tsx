@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import TypeWriter from "../animation/TypeWriter";
 
 interface Props {
   message: string;
@@ -67,7 +68,7 @@ export default function ChatMessage({
           <span
             className={`px-[0.65rem] min-h-[2rem] max-w-[70%] py-[0.55rem] text-neutral-50 border border-white/10 bg-white/5 rounded-xl transition-colors duration-300 ease-out hover:border-white/20 hover:bg-white/10 z-30 backdrop-blur-xl leading-[1.15rem]`}
           >
-            {actualMessage}
+            <TypeWriter text={actualMessage} onlyText speed={25} loop={false} />
           </span>
         )}
       </article>

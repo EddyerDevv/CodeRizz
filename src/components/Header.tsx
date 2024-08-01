@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import MobileMenu from "./Menu";
 import { useLocale, useTranslations } from "next-intl";
+import Select from "./feat/Select";
+import { useRouter } from "next/navigation";
 
 export interface NavLinksProps {
   label: string;
@@ -29,11 +31,12 @@ export default function Header() {
   const [activeMenu, setActiveMenu] = useState(false);
   const buttonMenuRef = useRef<HTMLButtonElement>(null);
   const t = useTranslations("LandingPage");
+
   const locale = useLocale();
 
   useEffect(() => {
     function handleResize() {
-      if (activeMenu && window.innerWidth >= 768) {
+      if (activeMenu && window.innerWidth >= 990) {
         setActiveMenu(false);
       }
     }
@@ -68,9 +71,31 @@ export default function Header() {
     }
   };
 
+  const router = useRouter();
+
+  const handleLanguageChange = (newLanguage: string) => {
+    router.push(`/${newLanguage}`, {
+      scroll: false,
+    });
+  };
+
+  const selectOptions = [
+    {
+      label: t("langs.en"),
+      value: "en",
+      active: locale === "en",
+    },
+    {
+      label: t("langs.es"),
+      value: "es",
+      active: locale === "es",
+    },
+  ];
+  const defaultValue = locale === "en" ? t("langs.en") : t("langs.es");
+
   return (
-    <header className="fixed w-full h-[4rem] flex items-center justify-around backdrop-blur gap-2 px-4 max-md:justify-between z-[100]">
-      <figure className="flex items-center justify-center">
+    <header className="fixed w-full h-[4rem] flex items-center justify-around backdrop-blur gap-2 px-4 max-[990px]:justify-between z-[100]">
+      <figure className="flex items-center justify-center flex-grow max-[990px]:flex-grow-0 max-[990px]:basis-auto basis-0">
         <Link href="/" className="flex items-center gap-2">
           <Image
             src="/logo.png"
@@ -84,7 +109,7 @@ export default function Header() {
           </span>
         </Link>
       </figure>
-      <nav className="flex items-center gap-3 max-md:hidden">
+      <nav className="flex items-center justify-center gap-3 max-[990px]:hidden flex-grow max-[990px]:basis-auto basis-0">
         <Link
           href={"https://github.com/EddyerDevv/CodeRizz#-maintainers"}
           target="_blank"
@@ -106,23 +131,29 @@ export default function Header() {
           </span>
         </Link>
       </nav>
-      <div className="flex items-center gap-2 max-md:hidden">
+      <div className="flex items-center justify-center gap-2 relative flex-grow marker: max-[990px]:flex-grow-0 basis-0 max-[990px]:basis-auto">
+        <Select
+          actualValue={defaultValue}
+          options={selectOptions}
+          direction="top"
+          onChange={({ value }) => {
+            handleLanguageChange(value);
+          }}
+        />
         <Link
           href={`${locale}/chat`}
-          className="px-4 py-1 rounded-full text-black bg-white"
+          className="px-4 py-1 rounded-full text-black bg-white max-[990px]:hidden block"
         >
           <span className="font-semibold text-[1.05rem] font-geistSans leading-[0]">
             {t("actions.chat")}
           </span>
         </Link>
-      </div>
-      <div className="flex flex-col justify-center items-center relative md:hidden">
         <button
           ref={buttonMenuRef}
           onClick={handleMenuClick}
-          className={`transition-colors duration-[0.2s] ease-out flex gap-2 justify-center items-center bg-white/10 hover:bg-white/20 rounded-full relative p-[0.35rem] text-white`}
+          className={`transition-colors duration-[0.2s] ease-out gap-2 justify-center items-center bg-white/10 hover:bg-white/20 rounded-full relative p-[0.35rem] text-white max-[990px]:flex hidden`}
         >
-          <EllipsisVerticalIcon className="size-[1.65re pointer-events-none" />
+          <EllipsisVerticalIcon className="size-[1.5rem] pointer-events-none" />
         </button>
         {activeMenu && (
           <MobileMenu

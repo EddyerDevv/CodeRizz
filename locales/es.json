@@ -7,6 +7,11 @@
       "description": "Nuestras respuestas con IA harán tus conversaciones más encantadoras y te ayudarán a conquistar a esa persona especial."
     },
 
+    "langs": {
+      "en": "Ingles",
+      "es": "Español"
+    },
+
     "actions": {
       "startNowButton": "Empieza ahora gratis",
       "chat": "Chatea con IA"
