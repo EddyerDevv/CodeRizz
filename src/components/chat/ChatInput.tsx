@@ -1,11 +1,17 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpIcon, BanIcon, PaperclipIcon } from "lucide-react";
+import { ArrowUpIcon, BanIcon, PaperclipIcon, X } from "lucide-react";
 import "@/styles/ChatInput.css";
+import Image from "next/image";
+
+interface onSubmit {
+  promptValue: string;
+  imageFile?: File;
+}
 
 interface Props {
   streamingData: boolean;
-  onSubmit: (prompt: string) => void;
+  onSubmit: (data: onSubmit) => void;
   onStop?: () => void;
 }
 
@@ -15,9 +21,13 @@ export default function ChatInput({ streamingData, onSubmit, onStop }: Props) {
   const [disableSend, setDisableSend] = useState(true);
   const [streaming, setStreaming] = useState(false);
   const [value, setValue] = useState("");
+  const [setImage, setSetImage] = useState(false);
+  const [imageBlob, setImageBlob] = useState<Blob | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const refInputWrapper = useRef<HTMLDivElement>(null);
   const refTextArea = useRef<HTMLDivElement>(null);
   const refSend = useRef<HTMLButtonElement>(null);
+  const refFileInput = useRef<HTMLInputElement>(null);
 
   const onClickSend = async () => {
     const refPrompt = refTextArea.current;
@@ -31,8 +41,20 @@ export default function ChatInput({ streamingData, onSubmit, onStop }: Props) {
     refPrompt.innerText = "";
     refPrompt.classList.add("placeholder");
 
-    onSubmit(value);
-    setValue("");
+    if (imageFile) {
+      console.log(imageFile);
+
+      onSubmit({
+        promptValue: value,
+        imageFile: imageFile,
+      });
+    } else {
+      onSubmit({
+        promptValue: value,
+      });
+    }
+
+    await Promise.all([setValue(""), handleEliminateImage()]);
   };
 
   const handleInput = (payload: string = "change", event?: any) => {
@@ -121,6 +143,51 @@ export default function ChatInput({ streamingData, onSubmit, onStop }: Props) {
     }
   };
 
+  const handleViewImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const isImage = file.type.startsWith("image");
+    if (!isImage) return;
+
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const arrayBuffer = e.target?.result;
+      if (arrayBuffer) {
+        const blob = new Blob([arrayBuffer], { type: file.type });
+        setImageBlob(blob);
+        setSetImage(true);
+      }
+    };
+
+    reader.readAsArrayBuffer(file);
+  };
+  const handleFileImage = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const isImage = file.type.startsWith("image");
+    if (!isImage) return;
+
+    setImageFile(file);
+  };
+  const handleEliminateImage = async () => {
+    if (!setImage) return;
+
+    if (refFileInput.current) {
+      refFileInput.current.value = "";
+    }
+
+    await Promise.all([
+      setSetImage(false),
+      setImageBlob(null),
+      setImageFile(null),
+    ]);
+  };
+
   useEffect(() => {
     const chatInputWrapper = document.getElementById("app_chat_input_wrapper");
     const chatTextArea = document.getElementById("app_chat_prompt_text");
@@ -171,8 +238,8 @@ export default function ChatInput({ streamingData, onSubmit, onStop }: Props) {
     <footer className="w-full min-h-[4rem] flex flex-col items-center justify-end py-2 gap-1 px-4">
       <div className="w-full items-center justify-center flex relative flex-col">
         <div
-          className="w-full max-w-[45rem] bg-white/10 min-h-[3.1rem] rounded-[50rem] justify-start items-end flex data-[expanded=true]:rounded-[1.375rem] py-1.5 gap-2 relative"
-          data-expanded={expanded}
+          className="w-full max-w-[45rem] bg-white/10 min-h-[3.1rem] rounded-[50rem] justify-start items-end flex data-[expanded=true]:rounded-[1.375rem] py-1.5 gap-2 relative flex-col"
+          data-expanded={expanded || setImage}
         >
           {streaming && (
             <button
@@ -185,6 +252,29 @@ export default function ChatInput({ streamingData, onSubmit, onStop }: Props) {
               </span>
             </button>
           )}
+          {setImage && (
+            <div className="flex w-full items-start px-3 pt-2">
+              <div className="flex items-center justify-center relative">
+                <button
+                  className="absolute top-[-0.5rem] bg-neutral-800 rounded-full border border-white/10 size-[1.375rem] hover:border-white/20 transition-colors duration-300 ease-out flex items-center justify-center right-[-0.5rem]"
+                  onClick={handleEliminateImage}
+                >
+                  <X
+                    className="size-[1.025rem] text-white"
+                    absoluteStrokeWidth
+                    strokeWidth={1.5}
+                  />
+                </button>
+                <Image
+                  src={imageBlob ? URL.createObjectURL(imageBlob) : ""}
+                  alt="Image selected"
+                  width={1000}
+                  height={1000}
+                  className="pointer-events-none w-[5.75rem] h-[3.65rem] rounded-lg object-cover aspect-video"
+                />
+              </div>
+            </div>
+          )}
           <div className="flex items-end justify-center w-full h-full gap-2">
             <div>
               <label className="flex flex-col items-center justify-center cursor-pointer mb-[0.4rem] ml-[1.1rem] mr-1">
@@ -194,9 +284,16 @@ export default function ChatInput({ streamingData, onSubmit, onStop }: Props) {
                   strokeWidth={1.5}
                 />
                 <input
+                  ref={refFileInput}
                   type="file"
                   name="image"
                   accept="image/*"
+                  onChange={(e) => {
+                    console.log(e);
+
+                    handleViewImage(e);
+                    handleFileImage(e);
+                  }}
                   className="hidden"
                 />
               </label>
@@ -205,6 +302,12 @@ export default function ChatInput({ streamingData, onSubmit, onStop }: Props) {
               className="flex min-w-0 flex-col flex-1 mb-[0.4rem]"
               ref={refInputWrapper}
             >
+              <input
+                type="text"
+                name="prompt"
+                className="hidden"
+                defaultValue={value}
+              />
               <div
                 ref={refTextArea}
                 className="size-full border-none overflow-auto textarea placeholder max-h-[calc(var(--rows-max)*1.5rem)] bg-transparent text-white text-[1.05rem] font-normal outline-none resize-none relative whitespace-pre-wrap text-left min-h-[1.5rem] flex-1"
@@ -222,6 +325,7 @@ export default function ChatInput({ streamingData, onSubmit, onStop }: Props) {
                 className="mb-[0.15rem] me-1 mr-2 flex size-8 bg-white rounded-full hover:bg-neutral-200 disabled:opacity-40 transition-[opacity,background-color] duration-300 ease-in-out items-center justify-center active:bg-neutral-400"
                 disabled={streaming || disableSend}
                 ref={refSend}
+                type="submit"
                 onClick={onClickSend}
               >
                 <ArrowUpIcon
