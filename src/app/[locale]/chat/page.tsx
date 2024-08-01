@@ -1,29 +1,30 @@
 "use client";
-import { useEffect, useState } from "react";
-import { Message, useChat } from "ai/react";
-import { RefreshCcwIcon } from "lucide-react";
+import ChatMessage from "@/components/chat/ChatMessage";
 import ChatInput from "@/components/chat/ChatInput";
 import Header from "@/components/chat/Header";
-import ChatMessage from "@/components/chat/ChatMessage";
+import { RefreshCcwIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Message, useChat } from "ai/react";
 import Image from "next/image";
 
 export default function Page() {
   const [streamingData, setStreamingData] = useState(false);
   const [loading, setLoading] = useState(false);
-  undefined;
   const [loadingData, setLoadingData] = useState(true);
   const { messages, append, handleSubmit, stop, reload, error, setMessages } =
     useChat({
-      onFinish: (message) => {
+      onFinish: () => {
         setStreamingData(false);
       },
-      onResponse(response) {
+      onResponse() {
         setLoading(false);
       },
     });
 
   const handleReloadResponse = async () => {
-    await Promise.all([setLoading(true), setStreamingData(true), reload()]);
+    setLoading(true);
+    setStreamingData(true);
+    await reload();
   };
 
   const handleSubmitInput = async ({
@@ -60,14 +61,16 @@ export default function Page() {
 
       reader.readAsDataURL(imageFile);
     } else {
-      append({ content: promptValue, role: "user" });
+      await append({ content: promptValue, role: "user" });
 
       handleSubmit();
     }
   };
 
-  const handleStopStreaming = async () => {
-    await Promise.all([setLoading(true), setStreamingData(false), stop()]);
+  const handleStopStreaming = () => {
+    setLoading(true);
+    setStreamingData(false);
+    stop();
   };
 
   const isUltimateMessage = (id: string) => {
@@ -91,8 +94,10 @@ export default function Page() {
     setMessages([]);
   };
 
-  const handleReloadMessages = async () => {
-    await Promise.all([setLoadingData(true), setMessages([]), clearMessages()]);
+  const handleReloadMessages = () => {
+    setLoadingData(true);
+    setMessages([]);
+    clearMessages();
   };
 
   useEffect(() => {

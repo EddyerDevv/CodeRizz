@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLinksProps } from "./Header";
 import Link from "next/link";
 
@@ -10,12 +10,12 @@ interface MobileMenuProps {
   headerNav: NavLinksProps[];
 }
 
-export default function MobileMenu({
-  buttonMenuRef,
-  activeMenu,
-  setActiveMenu,
-  headerNav,
-}: MobileMenuProps) {
+export default ({
+                    buttonMenuRef,
+                    activeMenu,
+                    setActiveMenu,
+                    headerNav,
+                }: MobileMenuProps) => {
   const [activeOutside, setActiveOutside] = useState(true);
   const menuRef = useRef<HTMLDivElement>(null);
 
