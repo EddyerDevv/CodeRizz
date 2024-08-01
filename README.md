@@ -12,6 +12,9 @@
 - 31/07/2024 - 17:45 MX - Added i18n 🌐
 - 31/07/2024 - 18:00 MX - Added Spotlight 🌟
 - 31/07/2024 - 6:29 MX - Added Select i18n 🌐
+- 1/08/2024 - 2:16 MX - New AI prompt
+- 1/08/2024 - 2:16 MX - Chat internationalization
+- 1/08/2024 - 2:16 MX - Fixed image upload
 
 # 🛠️ Maintainers
 
