@@ -126,12 +126,13 @@ export default function Page() {
       <div className="flex w-full flex-col items-center justify-center pb-4 relative top-[-12%]">
         <section className="aspect-video border border-white/15 w-[85%] rounded-lg bg-white/5 p-4 max-md:w-[100%] max-md:rounded-none  max-md:p-2">
           <div className="size-full rounded-lg bg-white/5 flex flex-col items-center justify-center max-md:rounded-none ">
-            <span className="text-white font-bold text-[1.5rem] max-md:text-[1.25rem]">
-              {t("preview.title")}
-            </span>
-            <p className="text-white/70 font-semibold text-[1rem] ">
-              {t("preview.description", { date: "6/7/2024" })}
-            </p>
+            <Image
+                src={`/preview_${locale}.png`}
+                alt="Code Rizz Logo"
+                layout={"responsive"}
+                width={200}
+                height={100}
+            />
           </div>
         </section>
       </div>
