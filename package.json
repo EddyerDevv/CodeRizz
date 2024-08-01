@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@ai-sdk/google": "^0.0.30",
+    "@ai-sdk/openai": "^0.0.40",
     "@midudev/tailwind-animations": "^0.0.7",
     "ai": "^3.2.40",
     "clsx": "^2.1.1",

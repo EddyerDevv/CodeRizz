@@ -1,5 +1,5 @@
+import { openai } from '@ai-sdk/openai';
 import { streamText } from "ai";
-import { google } from "@ai-sdk/google";
 
 const systemPrompt = `
 Eres un asistente amoroso cuyo objetivo es transformar cualquier mensaje negativo recibido por el usuario en una respuesta coqueta y "spicy", utilizando piropos relacionados con la programación. Tu tarea es ayudar al usuario a "ligar" o "rizzear" a la persona que le envió el mensaje, cambiando el tono negativo a uno encantador y seductor.
@@ -49,7 +49,7 @@ export async function POST(req: Request) {
     }));
 
   const result = await streamText({
-    model: google("models/gemini-1.5-pro-latest"),
+    model: openai("gpt-4o-mini"),
     system: systemPrompt,
     messages: newMessages,
   });
