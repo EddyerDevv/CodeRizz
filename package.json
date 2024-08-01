@@ -19,6 +19,7 @@
     "next-intl": "^3.17.2",
     "react": "^18",
     "react-dom": "^18",
+    "react-tooltip": "^5.27.1",
     "tailwind-merge": "^2.4.0"
   },
   "devDependencies": {
