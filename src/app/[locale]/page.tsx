@@ -7,12 +7,12 @@ import {
   MessageSquareIcon,
   RabbitIcon,
 } from "lucide-react";
-import { useTranslations, useLocale } from "next-intl";
-import Header from "@/components/Header";
 import TypeWriter from "@/components/animation/TypeWriter";
-import Link from "next/link";
-import Image from "next/image";
+import { useTranslations, useLocale } from "next-intl";
 import Spotlight from "@/components/SpotLight";
+import Header from "@/components/Header";
+import Image from "next/image";
+import Link from "next/link";
 
 const props = {
   className: "text-white size-[2rem]",

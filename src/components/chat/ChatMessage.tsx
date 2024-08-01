@@ -1,8 +1,8 @@
-import { Fragment, useEffect, useState } from "react";
 import { CheckIcon, CopyIcon, RefreshCcwIcon } from "lucide-react";
+import { Fragment, useEffect, useState } from "react";
 import { ITooltip, Tooltip } from "react-tooltip";
-import Image from "next/image";
 import TypeWriter from "../animation/TypeWriter";
+import Image from "next/image";
 
 interface Props {
   message: string;
@@ -35,9 +35,9 @@ export default function ChatMessage({
   const [actualMessage, setActualMessage] = useState(message);
   const [isCopied, setIsCopied] = useState(false);
 
-  const copyToClipboard = () => {
+  const copyToClipboard = async () => {
     setIsCopied(true);
-    navigator.clipboard.writeText(message);
+    await navigator.clipboard.writeText(message);
     setTimeout(() => setIsCopied(false), 1000);
   };
 
