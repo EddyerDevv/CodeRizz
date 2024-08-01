@@ -49,5 +49,24 @@
       "leads": "Project leads",
       "changelogs": "Change logs"
     }
+  },
+
+  "ChatPage": {
+    "directions": "Please send a screenshot or a message like this: \"Eddy: I hate you!\" What should I reply? I need help.",
+    "noHistory": "Looks like your message history is empty.",
+    "placeholder": "Attach image & ask for help",
+    "loading": "Loading...",
+    "warning": "Answers are not always accurate. Inspired in ChatGPT",
+
+    "error": {
+      "message": "Something went wrong. Please try again later.",
+      "description": "If the problem persists, please contact us."
+    },
+
+    "actions": {
+      "reload": "Reload",
+      "reset": "Start over",
+      "stop": "Stop responding"
+    }
   }
 }

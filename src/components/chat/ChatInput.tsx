@@ -4,6 +4,7 @@ import { ArrowUpIcon, BanIcon, PaperclipIcon, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import "@/styles/ChatInput.css";
 import Image from "next/image";
+import {useTranslations} from "next-intl";
 
 interface onSubmit {
     promptValue: string;
@@ -29,6 +30,7 @@ export default ({streamingData, onSubmit, onStop}: Props) => {
     const refTextArea = useRef<HTMLDivElement>(null);
     const refSend = useRef<HTMLButtonElement>(null);
     const refFileInput = useRef<HTMLInputElement>(null);
+    const t = useTranslations("ChatPage");
 
     const onClickSend = async () => {
         const refPrompt = refTextArea.current;
@@ -241,7 +243,7 @@ export default ({streamingData, onSubmit, onStop}: Props) => {
                         >
                             <BanIcon className="size-[1.325rem] text-white "/>
                             <span className="text-white font-medium text-[1rem] leading-[0] mr-2">
-                Stop streaming
+                {t("actions.stop")}
               </span>
                         </button>
                     )}
@@ -310,7 +312,7 @@ export default ({streamingData, onSubmit, onStop}: Props) => {
                                 onKeyDown={(e) => handleInput("keyDown", e)}
                                 onPaste={(e) => handleInput("paste", e)}
                                 id="app_chat_prompt_text"
-                                data-placeholder="Send a message or image"
+                                data-placeholder={t("placeholder")}
                                 contentEditable
                             />
                         </div>
@@ -333,7 +335,7 @@ export default ({streamingData, onSubmit, onStop}: Props) => {
                 </div>
             </div>
             <small className="text-neutral-400 font-normal">
-                Answers may be incorrect. Design ChatGPT.
+                {t("warning")}
             </small>
         </footer>
     );

@@ -50,5 +50,23 @@
       "leads": "Desarrolladores",
       "changelogs": "Actualizaciones"
     }
+  },
+
+  "ChatPage": {
+    "directions": "Envía una captura de pantalla o un mensaje como este: \"Eddy: Te odio!\" ¿Cómo debería responder? Necesito ayuda.",
+    "noHistory": "Parece que tu historial de mensajes está vacío.",
+    "placeholder": "Adjunta una imagen y pide ayuda",
+    "loading": "Cargando...",
+    "warning": "Las respuestas no siempre son precisas. Inspirado en ChatGPT",
+    "error": {
+      "message": "Algo salió mal. Por favor, inténtalo de nuevo más tarde.",
+      "description": "Si el problema persiste, por favor contáctanos."
+    },
+
+    "actions": {
+      "reload": "Recargar",
+      "reset": "Empezar de nuevo",
+      "stop": "Dejar de responder"
+    }
   }
 }

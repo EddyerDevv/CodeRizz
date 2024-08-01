@@ -5,12 +5,14 @@ import Header from "@/components/chat/Header";
 import { RefreshCcwIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Message, useChat } from "ai/react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 export default function Page() {
   const [streamingData, setStreamingData] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingData, setLoadingData] = useState(true);
+  const t = useTranslations("ChatPage");
   const { messages, append, handleSubmit, stop, reload, error, setMessages } =
     useChat({
       onFinish: () => {
@@ -140,15 +142,14 @@ export default function Page() {
                 <span className="text-[2rem] font-bold">Code Rizz</span>
               </header>
               <p className="text-[1.25rem] font-normal text-neutral-200 max-md:text-[1.15rem] max-w-[35rem] text-center leading-[1.4rem]">
-                Welcome, send a screenshot or a message like this: '“Reven: I
-                don't love you anymore”, what do I tell him, help.'
+                {t("directions")}
               </p>
               <p className="text-[1rem] font-normal text-neutral-400 text-center">
-                You currently have no messages in your history.
+                {t("noHistory")}
               </p>
               {loadingData && (
                 <p className="text-[1rem] font-medium text-neutral-200 text-center">
-                  Loading messages...
+                  {t("loading")}
                 </p>
               )}
             </div>
@@ -178,7 +179,7 @@ export default function Page() {
             );
           })}
           {loading && (
-            <ChatMessage message="Loading..." role="assistant" withLoadingAI />
+            <ChatMessage message={t("loading")} role="assistant" withLoadingAI />
           )}
         </section>
       </main>
@@ -187,10 +188,10 @@ export default function Page() {
           <div className="w-full items-center justify-center flex relative flex-col gap-2">
             <header className="flex flex-col justify-center items-center animate-fade-in-up animate-delay-200">
               <h1 className="text-[1.1rem] font-medium leading-[1.05rem]">
-                Something went wrong, please try again.
+                {t("error.message")}
               </h1>
               <p className="text-[0.9rem] font-normal text-neutral-400 text-center leading-[1.05rem]">
-                If the problem persists, please contact us.
+                {t("error.description")}
               </p>
             </header>
             <div className="flex flex-row mb-2">
@@ -206,7 +207,7 @@ export default function Page() {
                   strokeWidth={2}
                 />
                 <span className="text-black font-medium text-[1rem] leading-[0] mr-2">
-                  Reload
+                  {t("actions.reload")}
                 </span>
               </button>
             </div>
