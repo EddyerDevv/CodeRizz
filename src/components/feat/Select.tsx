@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CheckIcon, ChevronDown } from "lucide-react";
 
 interface OptionsProps {
@@ -179,9 +179,9 @@ export default function Select({
               data-active={option.active}
               key={option.value}
               onClick={onChangeOption}
-              className={`flex items-center justify-start px-2 !min-h-[2.155rem] w-full gap-2 cursor-pointer transition-colors duration-300 ease-out hover:bg-white/5 ${
+              className={`flex items-center justify-start px-2 !min-h-[2.155rem] w-full gap-1 cursor-pointer transition-colors duration-300 ease-out hover:bg-white/5 ${
                 option.active ? "bg-white/10 pointer-events-none" : ""
-              } ${className} rounded-lg`}
+              }  rounded-lg`}
             >
               <span
                 className={`mt-[1px] text-white text-[1rem] font-normal leading-[0] ${classNameText} pointer-events-none`}

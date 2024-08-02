@@ -1,6 +1,7 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLinksProps } from "./Header";
+import { useLocale } from "next-intl";
 import Link from "next/link";
 
 interface MobileMenuProps {
@@ -11,13 +12,14 @@ interface MobileMenuProps {
 }
 
 export default ({
-                    buttonMenuRef,
-                    activeMenu,
-                    setActiveMenu,
-                    headerNav,
-                }: MobileMenuProps) => {
+  buttonMenuRef,
+  activeMenu,
+  setActiveMenu,
+  headerNav,
+}: MobileMenuProps) => {
   const [activeOutside, setActiveOutside] = useState(true);
   const menuRef = useRef<HTMLDivElement>(null);
+  const locale = useLocale();
 
   useEffect(() => {
     const appHeaderMenu = menuRef.current;
@@ -90,7 +92,7 @@ export default ({
       </nav>
       <hr className="h-[0.0625rem] w-[80%] bg-black/20 border-none" />
       <Link
-        href={"/chat"}
+        href={`/${locale}/chat`}
         className="flex w-full items-center justify-center gap-2 text-black font-semibold h-[2.215rem] hover:bg-neutral-200 transition-colors duration-[0.2s] rounded-lg"
       >
         <span className="font-geistSans text-[0.975rem] pr-1">
@@ -99,4 +101,4 @@ export default ({
       </Link>
     </div>
   );
-}
+};

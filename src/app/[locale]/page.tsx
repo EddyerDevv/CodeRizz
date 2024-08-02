@@ -7,8 +7,8 @@ import {
   MessageSquareIcon,
   RabbitIcon,
 } from "lucide-react";
-import TypeWriter from "@/components/animation/TypeWriter";
 import { useTranslations, useLocale } from "next-intl";
+import TypeWriter from "@/components/animation/TypeWriter";
 import Spotlight from "@/components/SpotLight";
 import Header from "@/components/Header";
 import Image from "next/image";
@@ -116,26 +116,24 @@ export default function Page() {
             {t("header.description")}
           </p>
           <Link href={`${locale}/chat`}>
-            <button
-                className="flex items-center justify-center gap-2 rounded-full px-5 py-1 text-black bg-white ease-out max-md:px-4 max-md:py-1 animate-fade-in-up animate-delay-900">
-            <span className="text-[1.325rem] font-semibold font-geistSans max-md:text-[1.15rem]">
-              {t("actions.startNowButton")}
-            </span>
+            <button className="flex items-center justify-center gap-2 rounded-full px-5 py-1 text-black bg-white ease-out max-md:px-4 max-md:py-1 animate-fade-in-up animate-delay-900">
+              <span className="text-[1.325rem] font-semibold font-geistSans max-md:text-[1.15rem]">
+                {t("actions.startNowButton")}
+              </span>
             </button>
           </Link>
         </div>
       </main>
       {/* Preview */}
       <div className="flex w-full flex-col items-center justify-center pb-4 relative top-[-12%]">
-        <section
-            className="aspect-video border border-white/15 w-[85%] rounded-lg bg-white/5 p-4 max-md:w-[100%] max-md:rounded-none  max-md:p-2">
-          <div className="size-full rounded-lg bg-white/5 flex flex-col items-center justify-center max-md:rounded-none ">
+        <section className=" border border-white/15 w-[85%] rounded-lg bg-white/5 p-2 max-md:w-[100%] max-md:rounded-none ">
+          <div className="size-full rounded-lgflex flex-col items-center justify-center max-md:rounded-none ">
             <Image
-                src={`/preview_${locale}.png`}
-                alt="Code Rizz Logo"
-                layout={"responsive"}
-                width={200}
-                height={100}
+              src={`/preview_${locale}.png`}
+              alt="Code Rizz Logo"
+              width={1920}
+              layout="responsive"
+              height={1080}
             />
           </div>
         </section>

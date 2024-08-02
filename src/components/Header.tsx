@@ -1,12 +1,12 @@
 "use client";
 import { EllipsisVerticalIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import MobileMenu from "./Menu";
-import { useLocale, useTranslations } from "next-intl";
 import Select from "./feat/Select";
-import { useRouter } from "next/navigation";
 
 export interface NavLinksProps {
   label: string;

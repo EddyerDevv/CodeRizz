@@ -1,6 +1,7 @@
 import { CheckIcon, CopyIcon, RefreshCcwIcon } from "lucide-react";
 import { Fragment, useEffect, useState } from "react";
 import { ITooltip, Tooltip } from "react-tooltip";
+import { useTranslations } from "next-intl";
 import TypeWriter from "../animation/TypeWriter";
 import Image from "next/image";
 
@@ -12,14 +13,17 @@ interface Props {
   imageUrl?: string;
   isUltimateMessage?: boolean;
   onClickReload?: () => void;
+  scrollRef?: React.RefObject<HTMLElement>;
 }
 
-const tooltipProps: ITooltip = {
+export const tooltipProps: ITooltip = {
   place: "bottom",
+  classNameArrow: "bg-neutral-800 border-b border-white/15",
   className:
-    "bg-neultral-800 border border-white/15 !rounded-lg !px-2 !py-0 h-[2rem] text-[.9rem] leading-[0] flex items-center justify-center",
+    "!bg-neutral-800 border border-white/15 !rounded-lg !px-2 !py-0 h-[2rem] text-[.9rem] leading-[0] flex items-center justify-center z-[100]",
   delayShow: 100,
   delayHide: 100,
+  opacity: 1,
   offset: 8,
 };
 
@@ -31,9 +35,11 @@ export default function ChatMessage({
   imageUrl,
   isUltimateMessage,
   onClickReload,
+  scrollRef,
 }: Props) {
   const [actualMessage, setActualMessage] = useState(message);
   const [isCopied, setIsCopied] = useState(false);
+  const t = useTranslations("ChatPage");
 
   const copyToClipboard = async () => {
     setIsCopied(true);
@@ -43,7 +49,8 @@ export default function ChatMessage({
 
   useEffect(() => {
     setActualMessage(message);
-  }, [message]);
+    if (scrollRef) scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [message, scrollRef]);
 
   return (
     <div
@@ -61,7 +68,7 @@ export default function ChatMessage({
         }`}
       >
         {role === "assistant" && (
-          <div className="flex flex-row items-start gap-2">
+          <div className="flex flex-row items-start gap-2 ">
             <div className="flex-shrink-0 flex flex-col relative items-end">
               <Image
                 src={"/logo.png"}
@@ -97,7 +104,7 @@ export default function ChatMessage({
                     )}
                   </button>
                   <Tooltip id="copy-button" {...tooltipProps}>
-                    {isCopied ? "Copied!" : "Copy to clipboard"}
+                    {isCopied ? t("tooltips.copied") : t("tooltips.copy")}
                   </Tooltip>
                   {isUltimateMessage && (
                     <Fragment>
@@ -113,7 +120,7 @@ export default function ChatMessage({
                         />
                       </button>
                       <Tooltip id="reload-response-button" {...tooltipProps}>
-                        Reload response
+                        {t("tooltips.reload")}
                       </Tooltip>
                     </Fragment>
                   )}
@@ -150,12 +157,7 @@ export default function ChatMessage({
               ${withImage ? "rounded-tr-md" : ""}
               `}
             >
-              <TypeWriter
-                text={actualMessage}
-                onlyText
-                speed={25}
-                loop={false}
-              />
+              {actualMessage}
             </span>
           </div>
         )}

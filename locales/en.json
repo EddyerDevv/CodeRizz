@@ -63,10 +63,25 @@
       "description": "If the problem persists, please contact us."
     },
 
+    "tooltips": {
+      "copy": "Copy",
+      "copied": "Copied",
+      "reload": "Regenerate response"
+    },
+
+    "modals": {
+      "startOver": {
+        "title": "Do you want to restart the chat?",
+        "description": "You will lose all the data you have discussed with our chat.",
+        "button": "Continue"
+      }
+    },
+
     "actions": {
       "reload": "Reload",
       "reset": "Start over",
-      "stop": "Stop responding"
+      "stop": "Stop responding",
+      "add-image": "Add image"
     }
   }
 }

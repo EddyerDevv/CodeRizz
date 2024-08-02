@@ -1,18 +1,24 @@
 "use client";
+import { RefreshCcwIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Message, useChat } from "ai/react";
+import { useTranslations } from "next-intl";
 import ChatMessage from "@/components/chat/ChatMessage";
 import ChatInput from "@/components/chat/ChatInput";
 import Header from "@/components/chat/Header";
-import { RefreshCcwIcon } from "lucide-react";
-import { useEffect, useState } from "react";
-import { Message, useChat } from "ai/react";
-import { useTranslations } from "next-intl";
 import Image from "next/image";
+import Modal from "@/components/feat/Modal";
 
 export default function Page() {
   const [streamingData, setStreamingData] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingData, setLoadingData] = useState(true);
+  const [modalStartOver, setModalStartOver] = useState({
+    open: false,
+    close: () => {},
+  });
   const t = useTranslations("ChatPage");
+  const messagesEndRef = useRef<HTMLDivElement>(null);
   const { messages, append, handleSubmit, stop, reload, error, setMessages } =
     useChat({
       onFinish: () => {
@@ -91,6 +97,21 @@ export default function Page() {
     return [];
   };
 
+  const deleteUltimateMessageUser = () => {
+    const lastUserMessageIndex = [...messages]
+      .reverse()
+      .findIndex((message) => message.role === "user");
+
+    if (lastUserMessageIndex === -1) return;
+    const indexToRemove = messages.length - 1 - lastUserMessageIndex;
+    const updatedMessages = messages.filter(
+      (_, index) => index !== indexToRemove
+    );
+
+    setMessages(updatedMessages);
+    setMessagesLocal(updatedMessages);
+  };
+
   const clearMessages = () => {
     localStorage.removeItem("messages");
     setMessages([]);
@@ -100,6 +121,7 @@ export default function Page() {
     setLoadingData(true);
     setMessages([]);
     clearMessages();
+    setLoadingData(false);
   };
 
   useEffect(() => {
@@ -114,14 +136,41 @@ export default function Page() {
       setLoadingData(true);
       setMessages(messages);
       setLoadingData(false);
+
+      if (messagesEndRef.current) messagesEndRef.current.scrollIntoView();
     } else {
       setLoadingData(false);
     }
-  }, [handleReloadMessages]);
+  }, [messagesEndRef]);
+
+  const handleStartOver = () => {
+    setModalStartOver((prevState) => ({
+      ...prevState,
+      open: true,
+    }));
+  };
+
+  const handleCloseStartOver = (fn: () => void) => {
+    setModalStartOver((prevState) => ({
+      ...prevState,
+      close: fn,
+    }));
+  };
+
+  useEffect(() => {
+    if (error) deleteUltimateMessageUser();
+
+    return () => {
+      if (error) deleteUltimateMessageUser();
+    };
+  }, [error]);
 
   return (
-    <slot className="w-vw h-dvh flex flex-col overflow-hidden justify-center items-center">
-      <Header onReloadChat={handleReloadMessages} />
+    <slot
+      className="w-vw h-dvh flex flex-col overflow-hidden justify-center items-center"
+      id="app_chat"
+    >
+      <Header onReloadChat={() => handleStartOver()} />
       <main
         className="flex-1 w-full gap-4 flex flex-col px-4 max-h-max items-center overflow-auto "
         style={{
@@ -171,6 +220,7 @@ export default function Page() {
                 key={i}
                 withImage={hasImage}
                 imageUrl={url}
+                scrollRef={messagesEndRef}
                 onClickReload={isUltimate ? handleReloadResponse : undefined}
                 isUltimateMessage={isUltimate}
                 message={m.content as string}
@@ -179,8 +229,13 @@ export default function Page() {
             );
           })}
           {loading && (
-            <ChatMessage message={t("loading")} role="assistant" withLoadingAI />
+            <ChatMessage
+              message={t("loading")}
+              role="assistant"
+              withLoadingAI
+            />
           )}
+          <div ref={messagesEndRef} />
         </section>
       </main>
       {error ? (
@@ -220,6 +275,38 @@ export default function Page() {
           onStop={handleStopStreaming}
         />
       )}
+      <Modal
+        state={{
+          open: modalStartOver.open,
+          setOpen: setModalStartOver,
+        }}
+        toPortal="app_chat"
+        modalClose={handleCloseStartOver}
+      >
+        <div className="flex flex-col items-start justify-start gap-4 w-[19rem] h-full ">
+          <header className="flex items-start justify-start flex-col gap-[0.3rem]">
+            <h1 className="text-[1.1rem] font-semibold leading-[1.125rem]">
+              {t("modals.startOver.title")}
+            </h1>
+            <p className="text-[0.9rem] font-normal text-neutral-400 leading-[.9rem]">
+              {t("modals.startOver.description")}
+            </p>
+          </header>
+          <div className="flex flex-row items-center justify-end w-full gap-2 mt-3">
+            <button
+              className="flex items-center justify-center gap-2 rounded-lg px-3 h-[2.1rem] text-black bg-white ease-out max-md:px-4 max-md:py-1"
+              onClick={() => {
+                modalStartOver.close();
+                handleReloadMessages();
+              }}
+            >
+              <span className="text-black font-semibold text-[1.1rem] leading-[0]">
+                {t("modals.startOver.button")}
+              </span>
+            </button>
+          </div>
+        </div>
+      </Modal>
     </slot>
   );
 }
