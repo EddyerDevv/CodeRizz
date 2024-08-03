@@ -304,22 +304,20 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     getConversations();
   };
 
-  const deleteConversation = (conversationId: string) => {
+  const deleteConversation = (chatId: string) => {
     const conversations: Conversation[] = JSON.parse(
       localStorage.getItem("conversations") || "[]"
     );
 
-    const conversationIndex = conversations.findIndex(
-      (c) => c.id === conversationId
-    );
+    const conversationIndex = conversations.findIndex((c) => c.id === chatId);
 
     if (conversationIndex >= 0) {
       conversations.splice(conversationIndex, 1);
       localStorage.setItem("conversations", JSON.stringify(conversations));
     }
 
+    if (!conversationId) startNewChat();
     getConversations();
-    startNewChat();
   };
 
   /************/
