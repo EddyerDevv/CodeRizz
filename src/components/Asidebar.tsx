@@ -3,7 +3,7 @@
 import { useChatHook, Conversations } from "@/providers/chat.provider";
 import { MessageSquarePlus, PanelLeftIcon, TrashIcon } from "lucide-react";
 import React, { Fragment, useCallback, useEffect, useRef } from "react";
-import { Tooltip } from "react-tooltip";
+import { ITooltip, Tooltip } from "react-tooltip";
 import { tooltipProps } from "./chat/ChatMessage";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
@@ -130,6 +130,12 @@ export default function AsideBar() {
     deleteConversation(conversationId);
   };
 
+  const customPropsTooltip: ITooltip = {
+    ...tooltipProps,
+    className:
+      "bg-neutral-800 border border-white/15 !rounded-lg !px-2 !py-[0.3rem] min-h-[2.5rem] text-[.9rem] leading-[1rem] flex items-center justify-center z-[100] max-w-[20rem]",
+  };
+
   return (
     <aside
       className={`flex flex-col min-w-[17rem] w-[17rem] max-w-[17rem] h-full bg-neutral-900 px-3 py-1 gap-2 transition-[margin] duration-[500ms] max-[768px]:absolute z-40 relative ${
@@ -183,7 +189,7 @@ export default function AsideBar() {
                 <Link
                   data-tooltip-id={`${conversation.id}-tooltip`}
                   href={`/${locale}/chat?chatId=${conversation.id}`}
-                  className={`flex w-full items-center justify-start gap-2 rounded-md px-3 h-[2.25rem] hover:bg-white/5 cursor-pointer transition-colors duration-300 ease-out hover:text-neutral-100 text-neutral-400 ${
+                  className={`flex w-full items-center justify-start gap-2 rounded-lg px-3 h-[2.25rem] hover:bg-white/5 cursor-pointer transition-colors duration-300 ease-out hover:text-neutral-100 text-neutral-400 ${
                     conversationId === conversation.id
                       ? "!bg-white/5 !text-neutral-100"
                       : ""
@@ -193,21 +199,24 @@ export default function AsideBar() {
                     {conversation.title}
                   </span>
                 </Link>
-                <div className="absolute flex items-center justify-center right-[0.1rem]">
+                <div className="absolute flex items-center justify-center right-[0.3rem]">
                   <button
-                    className="border bg-white/5 border-white/5 rounded-md size-[2rem] transition-colors duration-300 ease-out text-neutral-400 hover:text-white flex items-center justify-center hover:bg-white/105 hover:border-white/10"
+                    className="border bg-white/5 border-white/5 rounded-lg size-[1.7rem] transition-colors duration-300 ease-out text-neutral-400 hover:text-white flex items-center justify-center hover:bg-white/105 hover:border-white/10"
                     data-tooltip-id={`${conversation.id}-delete-tooltip`}
                     data-conversation-id={conversation.id}
                     onClick={handleDeleteConversation}
                   >
                     <TrashIcon
-                      className="size-[1.25rem] pointer-events-none"
+                      className="size-[1.05rem] pointer-events-none"
                       absoluteStrokeWidth
                       strokeWidth={1.5}
                     />
                   </button>
                 </div>
-                <Tooltip id={`${conversation.id}-tooltip`} {...tooltipProps}>
+                <Tooltip
+                  id={`${conversation.id}-tooltip`}
+                  {...customPropsTooltip}
+                >
                   {conversation.title}
                 </Tooltip>
                 <Tooltip
@@ -234,7 +243,7 @@ export default function AsideBar() {
                   <Link
                     data-tooltip-id={`${conversation.id}-tooltip`}
                     href={`/${locale}/chat?chatId=${conversation.id}`}
-                    className={`flex w-full items-center justify-start gap-2 rounded-md px-3 h-[2.25rem] hover:bg-white/5 cursor-pointer transition-colors duration-300 ease-out hover:text-neutral-100 text-neutral-400 ${
+                    className={`flex w-full items-center justify-start gap-2 rounded-lg px-3 h-[2.25rem] hover:bg-white/5 cursor-pointer transition-colors duration-300 ease-out hover:text-neutral-100 text-neutral-400 ${
                       conversationId === conversation.id
                         ? "!bg-white/5 !text-neutral-100"
                         : ""
@@ -244,21 +253,24 @@ export default function AsideBar() {
                       {conversation.title}
                     </span>
                   </Link>
-                  <div className="absolute flex items-center justify-center right-[0.1rem]">
+                  <div className="absolute flex items-center justify-center right-[0.3rem]">
                     <button
-                      className="border bg-white/5 border-white/5 rounded-md size-[2rem] transition-colors duration-300 ease-out text-neutral-400 hover:text-white flex items-center justify-center hover:bg-white/105 hover:border-white/10"
+                      className="border bg-white/5 border-white/5 rounded-lg size-[1.7rem] transition-colors duration-300 ease-out text-neutral-400 hover:text-white flex items-center justify-center hover:bg-white/105 hover:border-white/10"
                       data-tooltip-id={`${conversation.id}-delete-tooltip`}
                       data-conversation-id={conversation.id}
                       onClick={handleDeleteConversation}
                     >
                       <TrashIcon
-                        className="size-[1.25rem] pointer-events-none"
+                        className="size-[1.05rem] pointer-events-none"
                         absoluteStrokeWidth
                         strokeWidth={1.5}
                       />
                     </button>
                   </div>
-                  <Tooltip id={`${conversation.id}-tooltip`} {...tooltipProps}>
+                  <Tooltip
+                    id={`${conversation.id}-tooltip`}
+                    {...customPropsTooltip}
+                  >
                     {conversation.title}
                   </Tooltip>
                   <Tooltip
@@ -287,7 +299,7 @@ export default function AsideBar() {
                   <Link
                     data-tooltip-id={`${conversation.id}-tooltip`}
                     href={`/${locale}/chat?chatId=${conversation.id}`}
-                    className={`flex w-full items-center justify-start gap-2 rounded-md px-3 h-[2.25rem] hover:bg-white/5 cursor-pointer transition-colors duration-300 ease-out hover:text-neutral-100 text-neutral-400 ${
+                    className={`flex w-full items-center justify-start gap-2 rounded-lg px-3 h-[2.25rem] hover:bg-white/5 cursor-pointer transition-colors duration-300 ease-out hover:text-neutral-100 text-neutral-400 ${
                       conversationId === conversation.id
                         ? "!bg-white/5 !text-neutral-100"
                         : ""
@@ -297,21 +309,24 @@ export default function AsideBar() {
                       {conversation.title}
                     </span>
                   </Link>
-                  <div className="absolute flex items-center justify-center right-[0.1rem]">
+                  <div className="absolute flex items-center justify-center right-[0.3rem]">
                     <button
-                      className="border bg-white/5 border-white/5 rounded-md size-[2rem] transition-colors duration-300 ease-out text-neutral-400 hover:text-white flex items-center justify-center hover:bg-white/105 hover:border-white/10"
+                      className="border bg-white/5 border-white/5 rounded-lg size-[1.7rem] transition-colors duration-300 ease-out text-neutral-400 hover:text-white flex items-center justify-center hover:bg-white/105 hover:border-white/10"
                       data-tooltip-id={`${conversation.id}-delete-tooltip`}
                       data-conversation-id={conversation.id}
                       onClick={handleDeleteConversation}
                     >
                       <TrashIcon
-                        className="size-[1.25rem] pointer-events-none"
+                        className="size-[1.05rem] pointer-events-none"
                         absoluteStrokeWidth
                         strokeWidth={1.5}
                       />
                     </button>
                   </div>
-                  <Tooltip id={`${conversation.id}-tooltip`} {...tooltipProps}>
+                  <Tooltip
+                    id={`${conversation.id}-tooltip`}
+                    {...customPropsTooltip}
+                  >
                     {conversation.title}
                   </Tooltip>
                   <Tooltip
@@ -340,7 +355,7 @@ export default function AsideBar() {
                   <Link
                     data-tooltip-id={`${conversation.id}-tooltip`}
                     href={`/${locale}/chat?chatId=${conversation.id}`}
-                    className={`flex w-full items-center justify-start gap-2 rounded-md px-3 h-[2.25rem] hover:bg-white/5 cursor-pointer transition-colors duration-300 ease-out hover:text-neutral-100 text-neutral-400 ${
+                    className={`flex w-full items-center justify-start gap-2 rounded-lg px-3 h-[2.25rem] hover:bg-white/5 cursor-pointer transition-colors duration-300 ease-out hover:text-neutral-100 text-neutral-400 ${
                       conversationId === conversation.id
                         ? "!bg-white/5 !text-neutral-100"
                         : ""
@@ -350,21 +365,24 @@ export default function AsideBar() {
                       {conversation.title}
                     </span>
                   </Link>
-                  <div className="absolute flex items-center justify-center right-[0.1rem]">
+                  <div className="absolute flex items-center justify-center right-[0.3rem]">
                     <button
-                      className="border bg-white/5 border-white/5 rounded-md size-[2rem] transition-colors duration-300 ease-out text-neutral-400 hover:text-white flex items-center justify-center hover:bg-white/105 hover:border-white/10"
+                      className="border bg-white/5 border-white/5 rounded-lg size-[1.7rem] transition-colors duration-300 ease-out text-neutral-400 hover:text-white flex items-center justify-center hover:bg-white/105 hover:border-white/10"
                       data-tooltip-id={`${conversation.id}-delete-tooltip`}
                       data-conversation-id={conversation.id}
                       onClick={handleDeleteConversation}
                     >
                       <TrashIcon
-                        className="size-[1.25rem] pointer-events-none"
+                        className="size-[1.05rem] pointer-events-none"
                         absoluteStrokeWidth
                         strokeWidth={1.5}
                       />
                     </button>
                   </div>
-                  <Tooltip id={`${conversation.id}-tooltip`} {...tooltipProps}>
+                  <Tooltip
+                    id={`${conversation.id}-tooltip`}
+                    {...customPropsTooltip}
+                  >
                     {conversation.title}
                   </Tooltip>
                   <Tooltip
@@ -417,7 +435,7 @@ export default function AsideBar() {
                   <Link
                     data-tooltip-id={`${conversation.id}-tooltip`}
                     href={`/${locale}/chat?chatId=${conversation.id}`}
-                    className={`flex w-full items-center justify-start gap-2 rounded-md px-3 h-[2.25rem] hover:bg-white/5 cursor-pointer transition-colors duration-300 ease-out hover:text-neutral-100 text-neutral-400 ${
+                    className={`flex w-full items-center justify-start gap-2 rounded-lg px-3 h-[2.25rem] hover:bg-white/5 cursor-pointer transition-colors duration-300 ease-out hover:text-neutral-100 text-neutral-400 ${
                       conversationId === conversation.id
                         ? "!bg-white/5 !text-neutral-100"
                         : ""
@@ -427,21 +445,24 @@ export default function AsideBar() {
                       {conversation.title}
                     </span>
                   </Link>
-                  <div className="absolute flex items-center justify-center right-[0.1rem]">
+                  <div className="absolute flex items-center justify-center right-[0.3rem]">
                     <button
-                      className="border bg-white/5 border-white/5 rounded-md size-[2rem] transition-colors duration-300 ease-out text-neutral-400 hover:text-white flex items-center justify-center hover:bg-white/105 hover:border-white/10"
+                      className="border bg-white/5 border-white/5 rounded-lg size-[1.7rem] transition-colors duration-300 ease-out text-neutral-400 hover:text-white flex items-center justify-center hover:bg-white/105 hover:border-white/10"
                       data-tooltip-id={`${conversation.id}-delete-tooltip`}
                       data-conversation-id={conversation.id}
                       onClick={handleDeleteConversation}
                     >
                       <TrashIcon
-                        className="size-[1.25rem] pointer-events-none"
+                        className="size-[1.05rem] pointer-events-none"
                         absoluteStrokeWidth
                         strokeWidth={1.5}
                       />
                     </button>
                   </div>
-                  <Tooltip id={`${conversation.id}-tooltip`} {...tooltipProps}>
+                  <Tooltip
+                    id={`${conversation.id}-tooltip`}
+                    {...customPropsTooltip}
+                  >
                     {conversation.title}
                   </Tooltip>
                   <Tooltip
