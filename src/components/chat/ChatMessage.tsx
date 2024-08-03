@@ -21,7 +21,7 @@ export const tooltipProps: ITooltip = {
   classNameArrow: "bg-neutral-800 border-b border-white/15",
   className:
     "!bg-neutral-800 border border-white/15 !rounded-lg !px-2 !py-0 h-[2rem] text-[.9rem] leading-[0] flex items-center justify-center z-[100]",
-  delayShow: 100,
+  delayShow: 400,
   delayHide: 100,
   opacity: 1,
   offset: 8,

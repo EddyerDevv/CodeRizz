@@ -17,6 +17,7 @@
 - 1/08/2024 - 2:16 MX - Fixed image upload
 - 1/08/2024 - 20:11 MX - All of the current improvements have been made.
 - 1/08/2024 - 20:22 MX - Added new image banner.
+- 2/08/2024 - 22:17 MX - Added multiple conversations
 
 # 🛠️ Maintainers
 
