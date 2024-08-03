@@ -13,6 +13,7 @@ export default function Page() {
   const [streamingData, setStreamingData] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingData, setLoadingData] = useState(true);
+  const [currentConversationId, setCurrentConversationId] = useState<string>();
   const [modalStartOver, setModalStartOver] = useState({
     open: false,
     close: () => {},
@@ -35,6 +36,15 @@ export default function Page() {
     await reload();
   };
 
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+
+  useEffect(() => {
+    const savedConversations = JSON.parse(
+      localStorage.getItem("conversations") || "[]"
+    );
+    setConversations(savedConversations);
+  }, []);
+
   const handleSubmitInput = async ({
     promptValue,
     imageFile,
@@ -44,6 +54,15 @@ export default function Page() {
   }) => {
     setLoading(true);
     setStreamingData(true);
+
+    if (isFirstMessage(messages)) {
+      await fetch("/api/title", {
+        body: JSON.stringify({ messages }),
+        method: "POST",
+      }).then((res) => res.text());
+
+      updateConversationTitle(currentConversationId!, promptValue);
+    }
 
     if (imageFile) {
       const reader = new FileReader();
@@ -62,15 +81,13 @@ export default function Page() {
               },
             ],
           });
-
           handleSubmit();
         }
       };
 
       reader.readAsDataURL(imageFile);
     } else {
-      await append({ content: promptValue, role: "user" });
-
+      await append({ id: generateId(), role: "user", content: promptValue });
       handleSubmit();
     }
   };
@@ -89,6 +106,23 @@ export default function Page() {
 
   const setMessagesLocal = (messages: Message[]) => {
     localStorage.setItem("messages", JSON.stringify(messages));
+  };
+
+  const updateConversationTitle = (
+    conversationId: string,
+    newTitle: string
+  ) => {
+    const conversations: Conversation[] = JSON.parse(
+      localStorage.getItem("conversations") || "[]"
+    );
+    const conversationIndex = conversations.findIndex(
+      (c) => c.id === conversationId
+    );
+
+    if (conversationIndex >= 0) {
+      conversations[conversationIndex].title = newTitle;
+      localStorage.setItem("conversations", JSON.stringify(conversations));
+    }
   };
 
   const getMessages = () => {
@@ -124,11 +158,40 @@ export default function Page() {
     setLoadingData(false);
   };
 
-  useEffect(() => {
-    if (messages.length > 0) {
-      setMessagesLocal(messages);
+  interface Conversation {
+    id: string;
+    title?: string;
+    messages: Message[];
+  }
+
+  const saveConversation = (conversation: Conversation) => {
+    const conversations: Conversation[] = JSON.parse(
+      localStorage.getItem("conversations") || "[]"
+    );
+    const conversationIndex = conversations.findIndex(
+      (c) => c.id === conversation.id
+    );
+
+    console.log(conversations.at(conversationIndex));
+    console.log(conversation);
+
+    if (conversationIndex >= 0) {
+      conversations[conversationIndex] = conversation;
+    } else {
+      conversations.push(conversation);
     }
-  }, [messages]);
+
+    localStorage.setItem("conversations", JSON.stringify(conversations));
+  };
+
+  useEffect(() => {
+    if (currentConversationId) {
+      saveConversation({
+        id: currentConversationId,
+        messages,
+      });
+    }
+  }, [messages, currentConversationId]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -162,6 +225,18 @@ export default function Page() {
     }));
   };
 
+  const isFirstMessage = (messages: Message[]) => messages.length === 0;
+
+  const handleSetConversation = (conversationId: string) => {
+    const conversation = conversations.find((c) => c.id === conversationId);
+    if (conversation) {
+      setMessages(conversation.messages);
+      setCurrentConversationId(conversationId);
+    } else {
+      console.error("Conversation not found");
+    }
+  };
+
   const handleCloseStartOver = (fn: () => void) => {
     setModalStartOver((prevState) => ({
       ...prevState,
@@ -182,7 +257,11 @@ export default function Page() {
       className="w-vw h-dvh flex flex-col overflow-hidden justify-center items-center"
       id="app_chat"
     >
-      <Header onReloadChat={() => handleStartOver()} />
+      <Header
+        onReloadChat={() => handleStartOver()}
+        previousChats={conversations}
+        handleSetConversation={handleSetConversation}
+      />
       <main
         className="flex-1 w-full gap-4 flex flex-col px-4 max-h-max items-center overflow-auto "
         style={{

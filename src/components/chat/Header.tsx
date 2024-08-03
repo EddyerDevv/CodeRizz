@@ -5,11 +5,22 @@ import { tooltipProps } from "./ChatMessage";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Select from "../feat/Select";
+import {Message} from "ai/react";
+
+interface Conversations {
+  id: string;
+  title?: string;
+  messages: Message[];
+}
 
 export default function Header({
-  onReloadChat,
+    onReloadChat,
+    previousChats,
+    handleSetConversation,
 }: {
+  handleSetConversation: (conversation: any) => void;
   onReloadChat?: () => void;
+  previousChats: Conversations[];
 }) {
   const t = useTranslations("ChatPage");
   const tLanding = useTranslations("LandingPage");
@@ -26,7 +37,7 @@ export default function Header({
     {
       label: tLanding("langs.en"),
       value: "en",
-      active: locale === "en" ? true : false,
+      active: locale === "en",
     },
     {
       label: tLanding("langs.es"),
@@ -34,6 +45,9 @@ export default function Header({
       active: locale === "es",
     },
   ];
+
+  const previousOptions = previousChats.map((chat: Conversations) => ({ label: chat.title!, value: chat.id, active: false }));
+
   const defaultValue =
     locale === "en" ? tLanding("langs.en") : tLanding("langs.es");
 
@@ -46,6 +60,15 @@ export default function Header({
         Code Rizz
       </Link>
       <div className="flex gap-1">
+        <Select
+            actualValue="Current chat"
+            options={previousOptions}
+            className="bg-white/5 !hover:bg-white/10"
+            direction="top"
+            onChange={({ value }) => {
+              handleSetConversation(value)
+            }}
+        />
         <Select
           actualValue={defaultValue}
           options={selectOptions}
