@@ -3,7 +3,7 @@ import { ChatRequestOptions } from "ai";
 import { CreateMessage, Message, useChat } from "ai/react";
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 export interface ChatContextProps {
   state: {
@@ -202,7 +202,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const setNewConvesation = async (message: Message) => {
+  const setNewConversation = async (message: Message) => {
     const conversations: Conversation[] = JSON.parse(
       localStorage.getItem("conversations") || "[]"
     );
@@ -212,7 +212,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     if (conversations.length > 0) {
       for (let i = 0; i < conversations.length; i++) {
         if (conversations[i].id === newId) {
-          setNewConvesation(message);
+          await setNewConversation(message);
           return;
         }
       }
@@ -248,7 +248,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       .catch((err) => err);
 
     if (newTitle) {
-      updateConversationTitle(newId, newTitle);
+      await updateConversationTitle(newId, newTitle);
     }
   };
 
@@ -280,7 +280,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     );
 
     setMessages(updatedMessages);
-    updateConversation(conversationId, updatedMessages);
+    await updateConversation(conversationId, updatedMessages);
   };
 
   const updateConversationTitle = async (
@@ -395,7 +395,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
           };
 
           await append(message);
-          if (!conversationId) setNewConvesation(message);
+          if (!conversationId) await setNewConversation(message);
 
           handleSubmit();
         }
@@ -410,7 +410,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       };
 
       await append(message);
-      if (!conversationId) setNewConvesation(message);
+      if (!conversationId) await setNewConversation(message);
 
       handleSubmit();
     }

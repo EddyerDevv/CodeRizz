@@ -6,9 +6,8 @@ import Select from "../feat/Select";
 
 export default function Header() {
   const {
-    state: { isMobile, isSidebar },
+    state: { isSidebar },
   } = useChatHook();
-  const t = useTranslations("ChatPage");
   const tLanding = useTranslations("LandingPage");
   const locale = useLocale();
   const router = useRouter();

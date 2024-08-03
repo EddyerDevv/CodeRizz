@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLinksProps } from "./Header";
 import { useLocale } from "next-intl";
 import Link from "next/link";

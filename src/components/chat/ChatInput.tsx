@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowUpIcon, BanIcon, PaperclipIcon, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Tooltip } from "react-tooltip";
 import { tooltipProps } from "./ChatMessage";
 import { useTranslations } from "next-intl";

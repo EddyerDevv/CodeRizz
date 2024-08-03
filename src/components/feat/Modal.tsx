@@ -1,7 +1,7 @@
 "use client";
 import { XIcon } from "lucide-react";
 import { createPortal } from "react-dom";
-import { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 
 interface ModalProps {
   state: {

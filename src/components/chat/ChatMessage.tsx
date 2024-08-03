@@ -1,8 +1,7 @@
 import { CheckIcon, CopyIcon, RefreshCcwIcon } from "lucide-react";
-import { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { ITooltip, Tooltip } from "react-tooltip";
 import { useTranslations } from "next-intl";
-import TypeWriter from "../animation/TypeWriter";
 import Image from "next/image";
 
 interface Props {

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CheckIcon, ChevronDown } from "lucide-react";
 
 interface OptionsProps {
@@ -14,7 +14,7 @@ interface SelectProps {
   className?: string;
   classNameIcon?: string;
   classNameText?: string;
-  classsNameContainer?: string;
+  classNameContainer?: string;
   direction?: "top" | "bottom";
   onChange?: ({ value, label }: OptionsProps) => void;
 }
@@ -24,7 +24,7 @@ export default function Select({
   options,
   className,
   actualValue,
-  classsNameContainer,
+  classNameContainer,
   classNameIcon,
   classNameText,
   direction = "bottom",
@@ -63,6 +63,20 @@ export default function Select({
     }
   };
 
+  function handleTransition() {
+    setIsAnimated(false);
+    setIsAnimating(true);
+
+    refOptions.current!.addEventListener("transitionend", () => {
+      setIsOpen(false);
+      setIsAnimating(false);
+      refOptions.current?.removeEventListener("transitionend", () => {
+        setIsOpen(false);
+        setIsAnimating(false);
+      });
+    });
+  }
+
   useEffect(() => {
     if (!refContainer.current) return;
     setHeightContainer(refContainer.current.offsetHeight);
@@ -82,17 +96,7 @@ export default function Select({
         !refOptions.current.contains(event.target as Node) &&
         !refContainer.current.contains(event.target as Node)
       ) {
-        setIsAnimated(false);
-        setIsAnimating(true);
-
-        refOptions.current.addEventListener("transitionend", () => {
-          setIsOpen(false);
-          setIsAnimating(false);
-          refOptions.current?.removeEventListener("transitionend", () => {
-            setIsOpen(false);
-            setIsAnimating(false);
-          });
-        });
+        handleTransition();
       }
     };
 
@@ -119,23 +123,13 @@ export default function Select({
       });
 
     if (refOptions.current) {
-      setIsAnimated(false);
-      setIsAnimating(true);
-
-      refOptions.current.addEventListener("transitionend", () => {
-        setIsOpen(false);
-        setIsAnimating(false);
-        refOptions.current?.removeEventListener("transitionend", () => {
-          setIsOpen(false);
-          setIsAnimating(false);
-        });
-      });
+      handleTransition();
     }
   };
 
   return (
     <div
-      className={`flex items-center justify-center ${classsNameContainer} relative z-[100]`}
+      className={`flex items-center justify-center ${classNameContainer} relative z-[100]`}
     >
       <div
         ref={refContainer}

@@ -2,7 +2,7 @@
 
 import { useChatHook, Conversations } from "@/providers/chat.provider";
 import { MessageSquarePlus, PanelLeftIcon, TrashIcon } from "lucide-react";
-import { Fragment, useCallback, useEffect, useRef } from "react";
+import React, { Fragment, useCallback, useEffect, useRef } from "react";
 import { Tooltip } from "react-tooltip";
 import { tooltipProps } from "./chat/ChatMessage";
 import { useLocale, useTranslations } from "next-intl";
