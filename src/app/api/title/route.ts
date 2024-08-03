@@ -38,5 +38,5 @@ export async function POST(req: Request) {
     messages,
   });
 
-  return new Response(result.text);
+  return new Response(result.text.replace(/"/g, ""));
 }
