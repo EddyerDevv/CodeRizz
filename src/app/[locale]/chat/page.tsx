@@ -131,16 +131,28 @@ export default function Page() {
   }, [messages]);
 
   useEffect(() => {
+    const handleResize = () => {
+      if (messagesEndRef.current)
+        messagesEndRef.current.scrollIntoView({
+          behavior: "smooth",
+        });
+    };
+
     const messages = getMessages();
     if (messages.length > 0) {
       setLoadingData(true);
       setMessages(messages);
       setLoadingData(false);
-
-      if (messagesEndRef.current) messagesEndRef.current.scrollIntoView();
+      handleResize();
     } else {
       setLoadingData(false);
     }
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, [messagesEndRef]);
 
   const handleStartOver = () => {
