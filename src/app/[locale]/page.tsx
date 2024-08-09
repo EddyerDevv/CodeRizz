@@ -1,18 +1,18 @@
 "use client";
 
-import { Fragment } from "react";
+import TypeWriter from "@/components/animation/TypeWriter";
+import Header from "@/components/Header";
+import Spotlight from "@/components/SpotLight";
 import {
   ArrowRightIcon,
   HistoryIcon,
   MessageSquareIcon,
   RabbitIcon,
 } from "lucide-react";
-import { useTranslations, useLocale } from "next-intl";
-import TypeWriter from "@/components/animation/TypeWriter";
-import Spotlight from "@/components/SpotLight";
-import Header from "@/components/Header";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
+import { Fragment } from "react";
 
 const props = {
   className: "text-white size-[2rem]",
@@ -125,16 +125,10 @@ export default function Page() {
         </div>
       </main>
       {/* Preview */}
-      <div className="flex w-full flex-col items-center justify-center pb-4 relative top-[-12%]">
-        <section className=" border border-white/15 w-[85%] rounded-lg bg-white/5 p-2 max-md:w-[100%] max-md:rounded-none ">
-          <div className="size-full rounded-lgflex flex-col items-center justify-center max-md:rounded-none ">
-            <Image
-              src={`/preview_${locale}.png`}
-              alt="Code Rizz Logo"
-              width={1920}
-              layout="responsive"
-              height={1080}
-            />
+      <div aria-hidden="true" className="flex w-full flex-col items-center justify-center pb-4 relative top-[-12%]">
+        <section className="h-[45rem] border border-white/15 w-[85%] rounded-lg bg-white/5 p-2 max-md:w-[100%] max-md:rounded-none ">
+          <div className="size-full  rounded-lg flex flex-col items-center justify-center max-md:rounded-none ">
+            <iframe scrolling="no" src="https://coderizz.vercel.app/en/chat" width={"100%"} height={'100%'}></iframe>
           </div>
         </section>
       </div>

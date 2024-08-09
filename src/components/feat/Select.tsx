@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
 import { CheckIcon, ChevronDown } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface OptionsProps {
   value: string;
@@ -129,31 +129,30 @@ export default function Select({
 
   return (
     <div
-      className={`flex items-center justify-center ${classNameContainer} relative z-[100]`}
+      className={`  flex items-center justify-center ${classNameContainer} relative z-[100]`}
     >
       <div
         ref={refContainer}
-        className={`flex items-center justify-start px-3 h-[2.125rem] min-w-[8rem] gap-2 cursor-pointer transition-colors duration-300 ease-out 5 hover:bg-white/15 bg-white/10 backdrop-blur ${className} rounded-xl `}
+        className={`flex items-center   justify-start pl-4 pr-3 px-3 h-[2.70rem] min-w-[8rem] gap-2 cursor-pointer transition-colors duration-300 ease-out 5 hover:bg-white-800/10 bg-transparent backdrop-blur border border-white/10  ${className} rounded-2xl `}
         onClick={handleOpen}
       >
         {icon && icon}
         <span
-          className={`text-white text-[1rem] font-normal leading-[0] ${classNameText} mt-[2px] pointer-events-none cursor-default font-geistSans`}
+          className={`text-white text-[1rem] font-normal leading-[0] ${classNameText} pointer-events-none cursor-default font-geistSans`}
         >
           {actualValue}
         </span>
         <ChevronDown
           className={`size-[1.25rem] text-white pointer-events-none ml-auto cursor-default ${classNameIcon}`}
           absoluteStrokeWidth
-          strokeWidth={1.5}
+          strokeWidth={2}
         />
       </div>
       {isOpen && (
         <div
           ref={refOptions}
-          className={`${
-            isAnimated ? "opacity-100 translate-y" : "opacity-0 -translate-y-4"
-          } transition-[opacity,transform] duration-300 ease-out absolute z-50 w-full bg-neutral-800 border border-white/10 rounded-xl p-1 gap-1 flex flex-col max-h-[13rem] overflow-y-auto hide-scrollbar backdrop-blur`}
+          className={`${isAnimated ? "opacity-100 translate-y" : "opacity-0 -translate-y-4"
+            } transition-[opacity,transform] duration-300 ease-out mt-2 absolute z-50 w-full bg-transparent border border-white/10 rounded-xl p-1 gap-1 flex flex-col max-h-[13rem] overflow-y-auto hide-scrollbar backdrop-blur`}
           style={{
             clipPath: "inset(0 0 0 0 round 8px)",
             top:
@@ -173,18 +172,17 @@ export default function Select({
               data-active={option.active}
               key={option.value}
               onClick={onChangeOption}
-              className={`flex items-center justify-start px-2 !min-h-[2.155rem] w-full gap-1 cursor-pointer transition-colors duration-300 ease-out hover:bg-white/5 ${
-                option.active ? "bg-white/10 pointer-events-none" : ""
-              }  rounded-lg`}
+              className={`flex items-center justify-start px-2 !min-h-[2.155rem] w-full gap-1 cursor-pointer transition-colors duration-300 ease-out hover:bg-white/5 ${option.active ? "bg-white/10 pointer-events-none" : ""
+                }  rounded-lg`}
             >
               <span
-                className={`mt-[1px] text-white text-[1rem] font-normal leading-[0] ${classNameText} pointer-events-none`}
+                className={`pl-2  mt-[1px] text-white text-[1rem] font-normal leading-[0] ${classNameText} pointer-events-none`}
               >
                 {option.label}
               </span>
               {option.active && (
                 <CheckIcon
-                  className="size-[1.25rem] ml-auto pointer-events-none"
+                  className="size-[1.25rem]  ml-auto pointer-events-none"
                   absoluteStrokeWidth
                   strokeWidth={2}
                 />
