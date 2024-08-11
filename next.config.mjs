@@ -21,6 +21,12 @@ const nextConfig = {
       },
     ],
   },
+  headers: [
+    {
+      key: "X-Frame-Options",
+      value: "DENY",
+    },
+  ],
 };
 
 export default withNextIntl(nextConfig);
