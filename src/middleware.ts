@@ -1,10 +1,9 @@
-import createMiddleware from "next-intl/middleware";
+import { loadMiddlewares } from "@/middlewares/loadMiddlewares";
+import { withRatelimit } from "@/middlewares/ratelimit";
+import { withIntl } from "@/middlewares/intl";
 
-export default createMiddleware({
-  locales: ["en", "es"],
-  defaultLocale: "en",
-});
+export default loadMiddlewares([withRatelimit, withIntl]);
 
 export const config = {
-  matcher: ["/", "/(en|es)/:path*"],
+    matcher: ["/", "/(en|es)/:path*"],
 };
