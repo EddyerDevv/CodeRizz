@@ -1,10 +1,10 @@
 "use client";
 import { EllipsisVerticalIcon } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import MobileMenu from "./Menu";
 import Select from "./feat/Select";
 
@@ -94,7 +94,7 @@ export default function Header() {
   const defaultValue = locale === "en" ? t("langs.en") : t("langs.es");
 
   return (
-    <header className="fixed w-full h-[4rem] flex items-center justify-around backdrop-blur gap-2 px-4 max-[990px]:justify-between z-[100]">
+    <header className="border border-white/10 rounded-xl fixed w-[80%] mx-[10%]  h-[5rem] flex items-center justify-between backdrop-blur gap-2 px-4 max-[990px]:justify-between z-[100]">
       <figure className="flex items-center justify-center flex-grow max-[990px]:flex-grow-0 max-[990px]:basis-auto basis-0">
         <Link href="/" className="flex items-center gap-2">
           <Image
@@ -109,14 +109,14 @@ export default function Header() {
           </span>
         </Link>
       </figure>
-      <nav className="flex items-center justify-center gap-3 max-[990px]:hidden flex-grow max-[990px]:basis-auto basis-0">
+      <nav className="  flex items-center justify-center gap-7 max-[990px]:hidden flex-grow max-[990px]:basis-auto basis-0">
         <Link
           href={"https://github.com/EddyerDevv/CodeRizz#-maintainers"}
           target="_blank"
           referrerPolicy="no-referrer"
-          className="rounded-full text-white hover:text-gray-300 transition-colors duration-300"
+          className="rounded-full text-white/90 hover:text-gray-100 transition-colors duration-300"
         >
-          <span className="font-semibold text-[1.05rem] font-geistSans leading-[0]">
+          <span className="font-normal text-base font-geistSans leading-[0]">
             {t("pages.leads")}
           </span>
         </Link>
@@ -124,14 +124,14 @@ export default function Header() {
           href={"https://github.com/EddyerDevv/CodeRizz#-changelogs"}
           target="_blank"
           referrerPolicy="no-referrer"
-          className="rounded-full text-white hover:text-gray-300 transition-colors duration-300"
+          className="rounded-full text-white/90 hover:text-gray-100 transition-colors duration-300"
         >
-          <span className="font-semibold text-[1.05rem] font-geistSans leading-[0]">
+          <span className="font-normal text-base font-geistSans leading-[0]">
             {t("pages.changelogs")}
           </span>
         </Link>
       </nav>
-      <div className="flex items-center justify-center gap-2 relative flex-grow marker: max-[990px]:flex-grow-0 basis-0 max-[990px]:basis-auto">
+      <div className="flex items-center justify-center gap-4 relative flex-grow marker: max-[990px]:flex-grow-0 basis-0 max-[990px]:basis-auto">
         <Select
           actualValue={defaultValue}
           options={selectOptions}
@@ -142,9 +142,9 @@ export default function Header() {
         />
         <Link
           href={`${locale}/chat`}
-          className="px-4 py-1 rounded-full text-black bg-white max-[990px]:hidden block"
+          className="px-4 py-2 rounded-full text-black bg-white max-[990px]:hidden block"
         >
-          <span className="font-semibold text-[1.05rem] font-geistSans leading-[0]">
+          <span className="font-bold text-[1rem] p-2 py-4 font-geistSans leading-[0]">
             {t("actions.chat")}
           </span>
         </Link>
