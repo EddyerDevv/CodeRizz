@@ -286,7 +286,7 @@ export default ({ streamingData, onSubmit, onStop }: Props) => {
               className="bg-white/10 h-[2.2rem] absolute top-[-2.5rem] flex items-center justify-center gap-2 rounded-full px-2 right-0 backdrop-blur hover:bg-white/15 transition-colors duration-300 ease-in-out z-30"
               onClick={() => onStop && onStop()}
             >
-              <BanIcon className="size-[1.325rem] text-white " />
+              <BanIcon className="size-[1.25rem] text-white " />
               <span className="text-white font-medium text-[1rem] leading-[0] mr-2">
                 {t("actions.stop")}
               </span>

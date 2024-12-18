@@ -56,12 +56,12 @@ export default function Page() {
     <Fragment>
       <AsideBar />
       <slot
-        className="w-full h-dvh flex flex-col overflow-hidden justify-center items-center"
+        className="w-full h-dvh flex flex-col overflow-hidden justify-start items-center"
         id="app_chat"
       >
         <Header />
         <main
-          className="flex-1 w-full gap-4 flex flex-col px-4 max-h-max items-center overflow-auto "
+          className="flex-1 w-full gap-4 flex flex-col px-4 max-h-max items-center overflow-auto mb-auto"
           style={{
             scrollbarWidth: "thin",
           }}
